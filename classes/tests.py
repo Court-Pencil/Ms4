@@ -1,19 +1,22 @@
 from django.test import TestCase
-from .models import Catergory
+from .models import Category
 
-class CatergoryTestCase(TestCase):
+class CategoryTestCase(TestCase):
 
     def setUp(self):
-        self.catergory = Catergory.objects.create(
+        self.category = Category.objects.create(
             name="Pottery",
             slug="pottery",
+            
         )
 
-    def test_catergory_str_returns_name(self):
-        self.assertEqual(str(self.catergory, "Pottery"))
+    def test_category_str_returns_name(self):
+        self.assertEqual(str(self.category), "Pottery")
 
-    def test_catergory_saves_correctly(self):
-        self.assertEqual(self.catergory.name, "Pottery")   
-        self.assertEqual(self.catergory.slug, "pottery")
+    def test_category_saves_correctly(self):
+        self.assertEqual(self.category.name, "Pottery")   
+        self.assertEqual(self.category.slug, "pottery")
+       
+        
 
 
