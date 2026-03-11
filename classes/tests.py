@@ -26,8 +26,6 @@ class StudioClassModelTest(TestCase):
             slug="pottery",
             description="A class for pottery enthusiasts."
         )
-
-    def setUp(self):
         self.studioclass = StudioClass.objects.create(
             title = 'Intro to Pottery',
             category = 'Pottery',
