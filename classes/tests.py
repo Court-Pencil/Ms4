@@ -120,6 +120,13 @@ class BookingModelTest(TestCase):
                 status='confirmed',
                 stripe_payment_id='abc123'
         )
+    def test_all_bookings_for_specific_user(self):
+        user_bookings = Booking.objects.filter(user=self.user)
+        self.assertEqual(user_bookings.count(), 1)
+
+    def test_all_bookings_for_specific_studio_class(self): 
+        studio_class_bookings = Booking.objects.filter(studio_class=self.studioclass) 
+        self.assertEqual(studio_class_bookings.count(), 1)
         
 
               
