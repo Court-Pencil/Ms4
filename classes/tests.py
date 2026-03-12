@@ -3,6 +3,7 @@ from .models import Category, StudioClass
 from django.contrib.auth.models import User
 from bookings.models import Booking
 from datetime import date
+from django.db import IntegrityError
 import unittest
 
 import datetime
@@ -89,6 +90,23 @@ class BookingModelTest(TestCase):
         self.assertEqual(self.booking.studio_class , self.studioclass)
         self.assertEqual(self.booking.status , 'confirmed') 
         self.assertEqual(self.booking.stripe_payment_id , 'fushgui1033')
+
+    def test_booking_status_default_pending(self):
+        booking = Booking.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            stripe_payment_id = 'fushgui1033'
+        )
+        self.assertEqual(booking.status, 'pending')
+
+    def test_no_double_booking(self):
+        with self.assertRaises(IntegrityError):
+            Booking.objects.create(
+                user=self.user,
+                studio_class=self.studioclass,
+                status='confirmed',
+                stripe_payment_id='abc123'
+        )
         
 
               
