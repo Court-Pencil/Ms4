@@ -1,6 +1,8 @@
 from django.test import TestCase
 from .models import Category, StudioClass
 from django.contrib.auth.models import User
+from bookings.models import Booking
+from datetime import date
 import unittest
 
 import datetime
@@ -34,11 +36,10 @@ class StudioClassModelTest(TestCase):
             title = 'Intro to Pottery',
             category = self.category,
             instructor = 'Steve',
-            date = '03/03/26',
-            duration = '2 hours',
+            date = datetime(2024, 7, 1),
+            duration = 120,
             capacity = 10,
             price = 50.00,
-            image = 'path/to/image.jpg',
             description = 'Learn the basics of pottery in this introductory class.',
             is_published = True,
         )
@@ -57,8 +58,39 @@ class StudioClassModelTest(TestCase):
         self.assertEqual(str(self.studioclass), "Intro to Pottery")
 
     
+class BookingModelTest(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(
+            name="Pottery",
+            slug="pottery",
+            description="A class for pottery enthusiasts."
+        )
+        self.studioclass = StudioClass.objects.create(
+            title = 'Intro to Pottery',
+            category = self.category,
+            instructor = 'Steve',
+            date = date(2024, 7, 1),
+            duration = 120,
+            capacity = 10,
+            price = 50.00,
+            description = 'Learn the basics of pottery in this introductory class.',
+            is_published = True,
+        )
+        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.booking = Booking.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            status = 'confirmed',
+            stripe_payment_id = 'fushgui1033'
+        )
 
-    
+    def test_booking_saves_correctly(self):
+        self.assertEqual(self.booking.user , self.user)
+        self.assertEqual(self.booking.studio_class , self.studioclass)
+        self.assertEqual(self.booking.status , 'confirmed') 
+        self.assertEqual(self.booking.stripe_payment_id , 'fushgui1033')
+        
+
               
 
 
