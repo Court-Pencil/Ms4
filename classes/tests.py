@@ -92,11 +92,15 @@ class BookingModelTest(TestCase):
         self.assertEqual(self.booking.stripe_payment_id , 'fushgui1033')
 
     def test_booking_status_default_pending(self):
-        booking = Booking.objects.create(
-            user = self.user,
-            studio_class = self.studioclass,
-            stripe_payment_id = 'fushgui1033'
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
         )
+        booking = Booking.objects.create(
+            user=new_user,
+            studio_class=self.studioclass,
+            stripe_payment_id='abc456'
+            )
         self.assertEqual(booking.status, 'pending')
 
     def test_no_double_booking(self):

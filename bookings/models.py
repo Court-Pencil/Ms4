@@ -8,3 +8,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booking for {self.studio_class.title} by {self.user.username} - Status: {self.status}"
+    
+    class Meta:
+        unique_together = ('user', 'studio_class')
