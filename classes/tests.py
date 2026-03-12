@@ -37,7 +37,7 @@ class StudioClassModelTest(TestCase):
             title = 'Intro to Pottery',
             category = self.category,
             instructor = 'Steve',
-            date = datetime(2024, 7, 1),
+            date = date(2024, 7, 1),
             duration = 120,
             capacity = 10,
             price = 50.00,
@@ -45,15 +45,24 @@ class StudioClassModelTest(TestCase):
             is_published = True,
         )
 
-    @unittest.skip("Booking model not built yet")
+    
     def test_studioclass_spots_remaining(self):
         self.assertEqual(self.studioclass.spots_remaining, 10)
 
-    @unittest.skip("Booking model not built yet")
-    #def test_spots_remaining_decreases_with_booking(self):
+   
+    def test_spots_remaining_decreases_with_booking(self):
+        self.user = User.objects.create_user(username='court', password='testuser123')
+        Booking.objects.create(
+        user=self.user,
+        studio_class=self.studioclass,
+        status='confirmed',
+        stripe_payment_id='fushgui1033'
+    )
+        self.assertEqual(self.studioclass.spots_remaining, 9)
 
-    @unittest.skip("Booking model not built yet")
-    #def test_is_full_returns_false_when_spots_available(self):
+    
+    def test_is_full_returns_false_when_spots_available(self):
+        self.assertFalse(self.studioclass.is_full)
 
     def test_studioclass_str_returns_name(self):
         self.assertEqual(str(self.studioclass), "Intro to Pottery")

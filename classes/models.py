@@ -27,4 +27,4 @@ class StudioClass(models.Model):
     
     @property
     def spots_remaining(self):
-        return self.capacity - self.booking_set.filter(status='confirmed').count()
+        return self.capacity - self.bookings.filter(status='confirmed').count()
