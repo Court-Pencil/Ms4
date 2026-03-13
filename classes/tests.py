@@ -161,10 +161,14 @@ class ReviewModelTest(TestCase):
         self.assertEqual(self.review.rating , 5) 
         self.assertEqual(self.review.comment , "Great class! Learned a lot and had fun.")
 
-    def test_rating_validator_one_to_5(self):
+    def test_rating_validator_one_to_five(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
         with self.assertRaises(ValidationError):
             review = Review.objects.create(
-            user = self.user,
+            user = new_user,
             studio_class = self.studioclass,
             rating = 0,
             comment = "fail test",
@@ -172,9 +176,13 @@ class ReviewModelTest(TestCase):
             review.full_clean()
 
     def test_rating_validator_rejects_over_five(self):
+        new_user2 = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
         with self.assertRaises(ValidationError):
             review = Review.objects.create(
-            user = self.user,
+            user = new_user2,
             studio_class = self.studioclass,
             rating = 6,
             comment = "fail test",
