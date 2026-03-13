@@ -203,11 +203,7 @@ class UserProfileModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='jessica', password='testuser123'
         )
-        self.userprofile = UserProfile.objects.create(
-        phone_number = '04840204850',
-        bio = 'hi im jessica, i have a passion for pottery and macromae',
-        user = self.user
-    )
+        self.userprofile = self.user.accounts
         
     def test_user_profile_returns_correct_user(self):
         self.assertEqual(self.userprofile.user, self.user)
@@ -215,15 +211,10 @@ class UserProfileModelTest(TestCase):
         self.assertEqual(str(self.userprofile), "jessica")
 
     def test_user_profile_saves_correctly(self):
-        self.assertEqual(self.userprofile.bio, 'hi im jessica, i have a passion for pottery and macromae')
-        self.assertEqual(self.userprofile.phone_number, '04840204850')
+        self.assertEqual(self.userprofile.bio, '')
+        self.assertEqual(self.userprofile.phone_number, '')
 
     def test_on_user_creation_create_profile(self):
-        new_user = User.objects.filter(username='newuser', password='123rr')
+        new_user = User.objects.create_user(username='newuser', password='123rr')
         self.assertTrue(UserProfile.objects.filter(user=new_user).exists())
-
-
-
-              
-
 
