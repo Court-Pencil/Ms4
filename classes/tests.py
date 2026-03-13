@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Category, StudioClass
+from .models import Category, StudioClass, Review
 from django.contrib.auth.models import User
 from bookings.models import Booking
 from datetime import date
@@ -128,6 +128,38 @@ class BookingModelTest(TestCase):
         studio_class_bookings = Booking.objects.filter(studio_class=self.studioclass) 
         self.assertEqual(studio_class_bookings.count(), 1)
         
+class ReviewModelTest(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(
+            name="Pottery",
+            slug="pottery",
+            description="A class for pottery enthusiasts."
+        )
+        self.studioclass = StudioClass.objects.create(
+            title = 'Intro to Pottery',
+            category = self.category,
+            instructor = 'Steve',
+            date = date(2024, 7, 1),
+            duration = 120,
+            capacity = 10,
+            price = 50.00,
+            description = 'Learn the basics of pottery in this introductory class.',
+            is_published = True,
+        )
+        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.review = Review.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            rating = 5,
+            comment = "Great class! Learned a lot and had fun.",
+        )
+
+    def test_review_saves_correctly(self):
+        self.assertEqual(self.review.user , self.user)
+        self.assertEqual(self.review.studio_class , self.studioclass)
+        self.assertEqual(self.review.rating , 5) 
+        self.assertEqual(self.review.comment , "Great class! Learned a lot and had fun.")
+
 
               
 
