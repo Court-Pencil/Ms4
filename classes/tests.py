@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 from bookings.models import Booking
 from datetime import date
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 import unittest
 
-import datetime
+
 
 class CategoryModelTest(TestCase):
 
@@ -159,6 +160,37 @@ class ReviewModelTest(TestCase):
         self.assertEqual(self.review.studio_class , self.studioclass)
         self.assertEqual(self.review.rating , 5) 
         self.assertEqual(self.review.comment , "Great class! Learned a lot and had fun.")
+
+    def test_rating_validator_one_to_5(self):
+        with self.assertRaises(ValidationError):
+            review = Review.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            rating = 0,
+            comment = "fail test",
+            )
+            review.full_clean()
+
+    def test_rating_validator_rejects_over_five(self):
+        with self.assertRaises(ValidationError):
+            review = Review.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            rating = 6,
+            comment = "fail test",
+            )
+            review.full_clean()
+
+    def test_one_review_per_person(self):
+        with self.assertRaises(IntegrityError):
+            Review.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            rating = 5,
+            comment = "Great class! Learned a lot and had fun.",
+        )
+
+
 
 
               
