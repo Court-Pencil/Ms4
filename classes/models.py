@@ -5,6 +5,9 @@ class Category(models.Model):
     name= models.CharField(max_length=50)
     slug= models.SlugField(max_length=50)
     description = models.TextField(max_length=255, null=True, blank=True)
+   
+    class Meta:
+        verbose_name_plural = "Categories"
 
     #did you migrate
 
@@ -13,13 +16,13 @@ class Category(models.Model):
 
 class StudioClass(models.Model):
     title = models.CharField(max_length=100)
-    category = models.CharField(max_length=50)
+    category = models.ForeignKey('classes.Category', on_delete=models.CASCADE, related_name='studioclasses')
     instructor = models.CharField(max_length=100)
-    date = models.CharField(max_length=20)
-    duration = models.CharField(max_length=20)
+    date = models.DateField()
+    duration = models.IntegerField()
     capacity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    image = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='classes/', blank=True, null=True)
     description = models.TextField(max_length=255, null=True, blank=True)
     is_published = models.BooleanField(default=False)
 
@@ -34,6 +37,9 @@ class StudioClass(models.Model):
     def is_full(self):
         return self.spots_remaining == 0
     
+    class Meta:
+        verbose_name_plural = "Studio Classes"
+    
 class Review(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='reviews')
     studio_class = models.ForeignKey('classes.StudioClass', on_delete=models.CASCADE, related_name='reviews')
@@ -46,3 +52,6 @@ class Review(models.Model):
        
     class Meta:
         unique_together = ('user', 'studio_class')
+        verbose_name_plural = 'Reviews'
+
+    
