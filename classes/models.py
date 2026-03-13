@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Category(models.Model):
     name= models.CharField(max_length=50)
@@ -32,5 +33,15 @@ class StudioClass(models.Model):
     @property
     def is_full(self):
         return self.spots_remaining == 0
+    
+class Review(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='reviews')
+    studio_class = models.ForeignKey('classes.StudioClass', on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    comment = models.TextField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review for {self.studio_class.title} by {self.user.username} - {self.created_at}"
        
 
