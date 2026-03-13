@@ -218,6 +218,10 @@ class UserProfileModelTest(TestCase):
         self.assertEqual(self.userprofile.bio, 'hi im jessica, i have a passion for pottery and macromae')
         self.assertEqual(self.userprofile.phone_number, '04840204850')
 
+    def test_on_user_creation_create_profile(self):
+        new_user = User.objects.filter(username='newuser', password='123rr')
+        self.assertTrue(UserProfile.objects.filter(user=new_user).exists())
+
 
 
               
