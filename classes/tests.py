@@ -2,6 +2,7 @@ from django.test import TestCase
 from .models import Category, StudioClass, Review
 from django.contrib.auth.models import User
 from bookings.models import Booking
+from accounts.models import UserProfile
 from datetime import date
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
@@ -197,7 +198,25 @@ class ReviewModelTest(TestCase):
             rating = 5,
             comment = "Great class! Learned a lot and had fun.",
         )
+            
+class UserProfileModelTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='jessica', password='testuser123'
+        )
+        self.userprofile = UserProfile.objects.create(
+        phone_number = '04840204850',
+        bio = 'hi im jessica, i have a passion for pottery and macromae',
+        user = self.user
+    )
+        
+    def test_user_profile_returns_correct_user(self):
+        self.assertEqual(self.userprofile.user, self.user)
+    def test_user_profile_str_returns_name(self):
+        self.assertEqual(str(self.userprofile), "jessica")
 
+    def test_user_profile_saves_correctly(self):
+        self.assertEqual(self.userprofile.bio, 'hi im jessica, i have a passion for pottery and macromae')
+        self.assertEqual(self.userprofile.phone_number, '04840204850')
 
 
 
