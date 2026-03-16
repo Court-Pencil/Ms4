@@ -1,0 +1,125 @@
+[
+{
+  "model": "classes.category",
+  "pk": 1,
+  "fields": {
+    "name": "Pottery",
+    "slug": "pottery",
+    "description": "Discover the basics of pottery through hands on practice with clay, tools, and techniques. Learn to shape, sculpt, and glaze your own pieces in a relaxed, creative environment perfect for beginners looking to explore the art of ceramics."
+  }
+},
+{
+  "model": "classes.category",
+  "pk": 2,
+  "fields": {
+    "name": "Monoprinting",
+    "slug": "monoprinting",
+    "description": "Monoprinting is a playful printmaking technique where you paint or ink a smooth surface and transfer a single, unique impression onto paper, creating expressive textures and one of a kind art work."
+  }
+},
+{
+  "model": "classes.category",
+  "pk": 3,
+  "fields": {
+    "name": "Lino Printing",
+    "slug": "lino-printing",
+    "description": "Lino printing is a relief printmaking technique where you carve a design into linoleum, roll it with ink, and press it onto paper to create bold, graphic prints with a handcrafted feel."
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 1,
+  "fields": {
+    "title": "Hand Build Mug",
+    "category": 1,
+    "instructor": "Gregg",
+    "date": "2026-04-30",
+    "duration": 90,
+    "capacity": 8,
+    "price": "50.00",
+    "image": "classes/solarselle77-coffee-9999653_640.png",
+    "description": "Sculpt and paint your own custom hand built mug! In this hands on class, you'll design a functional, one of a kind piece that reflects your creativity. Your finished mug will be fired and ready for pickup in 4-6 weeks.",
+    "is_published": true
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 2,
+  "fields": {
+    "title": "Beginner Pottery Wheel Class",
+    "category": 1,
+    "instructor": "Gregg",
+    "date": "2026-04-18",
+    "duration": 90,
+    "capacity": 8,
+    "price": "50.00",
+    "image": "classes/pexels-koolshooters-9736890.jpg",
+    "description": "Learn the basics of wheel throwing as you shape and create your own ceramic pieces. This beginner friendly class guides you through centering, pulling walls, and forming simple shapes. Finished work will be fired and ready for pickup in 4-6 weeks",
+    "is_published": true
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 3,
+  "fields": {
+    "title": "Introduction to Monoprinting",
+    "category": 2,
+    "instructor": "Serita",
+    "date": "2026-05-01",
+    "duration": 90,
+    "capacity": 10,
+    "price": "10.00",
+    "image": "classes/1000034074.jpg",
+    "description": "Explore the basics of monoprinting in this fun, beginner friendly workshop. Learn how to use gel plates, inks, and simple tools to create bold, layered prints. Experiment with colour and texture as you design unique artwork to take home the same day.",
+    "is_published": true
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 4,
+  "fields": {
+    "title": "Botanical Monoprinting Class",
+    "category": 2,
+    "instructor": "Alex",
+    "date": "2026-04-21",
+    "duration": 120,
+    "capacity": 10,
+    "price": "15.00",
+    "image": "classes/2148722028.jpg",
+    "description": "Create beautiful monoprints using leaves, flowers, and natural textures. In this beginner friendly workshop, you'll explore colour, layering, and composition while capturing organic shapes in vibrant prints. Take home your finished artwork the same day.",
+    "is_published": true
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 5,
+  "fields": {
+    "title": "Fruit & Botanical Lino Print",
+    "category": 3,
+    "instructor": "Clara",
+    "date": "2026-06-10",
+    "duration": 120,
+    "capacity": 10,
+    "price": "25.00",
+    "image": "classes/hand-drawn-lemon-silhouette.png",
+    "description": "Carve and print your own fruit and botanical designs in this beginner friendly lino printing class. Learn carving, inking, and printing techniques as you create bold nature inspired artwork to take home the same day.",
+    "is_published": true
+  }
+},
+{
+  "model": "classes.studioclass",
+  "pk": 6,
+  "fields": {
+    "title": "Introduction to Lino Printing",
+    "category": 3,
+    "instructor": "Clara",
+    "date": "2026-04-17",
+    "duration": 120,
+    "capacity": 8,
+    "price": "25.00",
+    "image": "classes/1000034076.jpg",
+    "description": "Learn the basics of lino printing in this beginner friendly class. You'll explore carving techniques, inking, and hand printing to create bold, graphic designs. Experiment with pattern and texture as you craft prints to take home the same day.",
+    "is_published": true
+  }
+}
+]
