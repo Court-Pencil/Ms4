@@ -51,6 +51,17 @@ class AuthViewTest(TestCase):
         response = self.client.get("/accounts/userprofile/edit/")
         self.assertEqual(200, response.status_code)
 
+    def test_form_saves_correctly(self):
+        new_user = User.objects.create_user(username='newuser', password='testpass123')
+        self.client.login(username='newuser', password='testpass123')
+        self.client.post("/accounts/userprofile/edit/", {
+        'phone_number': '0123456789',
+        'bio': 'Updated bio'
+        })
+        updated_profile = UserProfile.objects.get(user=new_user)
+        self.assertEqual(updated_profile.phone_number, '0123456789')
+        self.assertEqual(updated_profile.bio, 'Updated bio')
+
 
 
 
