@@ -42,5 +42,15 @@ class AuthViewTest(TestCase):
         logged_in = self.client.login(username='newuser', password='testpass123')
         self.assertTrue(logged_in)
 
+    def test_does_form_display_to_logged_in_user(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
+        self.client.login(username='newuser', password='testpass123')
+        response = self.client.get("/accounts/userprofile/edit/")
+        self.assertEqual(200, response.status_code)
+
+
 
 
