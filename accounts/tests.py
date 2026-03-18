@@ -1,4 +1,6 @@
 from django.test import TestCase
+from accounts.models import UserProfile
+from django.contrib.auth.models import User
 
 class AuthViewTest(TestCase):
 
@@ -6,6 +8,15 @@ class AuthViewTest(TestCase):
         response = self.client.get("/accounts/login/")
         self.assertEqual(200, response.status_code)
 
-    def test_anon_can_acess_login_page(self):
+    def test_anon_can_acess_signup_page(self):
         response = self.client.get("/accounts/signup/")
         self.assertEqual(200, response.status_code)
+
+    def test_auth_user_gets_redirected(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
+        self.client.login(username='newuser', password='testpass123')
+        response = self.client.get("/accounts/login/")
+        self.assertEqual(302, response.status_code)
