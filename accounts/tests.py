@@ -20,3 +20,9 @@ class AuthViewTest(TestCase):
         self.client.login(username='newuser', password='testpass123')
         response = self.client.get("/accounts/login/")
         self.assertEqual(302, response.status_code)
+    
+    def test_cannot_anon_access_userprofile(self):
+        response = self.client.get("/accounts/userprofile/")
+        self.assertEqual(302, response.status_code)
+
+
