@@ -34,4 +34,13 @@ class AuthViewTest(TestCase):
         response = self.client.get("/accounts/userprofile/")
         self.assertEqual(200, response.status_code)
 
+    def test_user_can_login(self):
+        User.objects.create_user(
+        username='newuser',
+        password='testpass123'
+        )
+        logged_in = self.client.login(username='newuser', password='testpass123')
+        self.assertTrue(logged_in)
+
+
 
