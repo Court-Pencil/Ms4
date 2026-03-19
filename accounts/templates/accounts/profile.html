@@ -3,3 +3,9 @@
 <p>Email: {{ profile.user.email }}</p>
 <p>Phone: {{ profile.phone_number }}</p>
 <p>Bio: {{ profile.bio }}</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
