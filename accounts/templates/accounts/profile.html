@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <h1>My Profile</h1>
 <p>Username: {{ profile.user.username }}</p>
 <p>Email: {{ profile.user.email }}</p>
@@ -9,3 +13,5 @@
         <p>{{ message }}</p>
     {% endfor %}
 {% endif %}
+
+{% endblock %}

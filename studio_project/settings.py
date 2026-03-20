@@ -76,7 +76,7 @@ ROOT_URLCONF = 'studio_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,3 +142,4 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_LOGIN_METHODS = {'username'}
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
