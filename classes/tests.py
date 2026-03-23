@@ -47,7 +47,6 @@ class StudioClassModelTest(TestCase):
             is_published = True,
         )
 
-    
     def test_studioclass_spots_remaining(self):
         self.assertEqual(self.studioclass.spots_remaining, 10)
 
@@ -68,6 +67,14 @@ class StudioClassModelTest(TestCase):
 
     def test_studioclass_str_returns_name(self):
         self.assertEqual(str(self.studioclass), "Intro to Pottery")
+
+
+
+    def test_public_class_view(self):
+            response = self.client.get("/classes/clas_list/")
+            self.assertEqual(200, response.status_code)
+
+    
 
     
 class BookingModelTest(TestCase):
@@ -217,4 +224,8 @@ class UserProfileModelTest(TestCase):
     def test_on_user_creation_create_profile(self):
         new_user = User.objects.create_user(username='newuser', password='123rr')
         self.assertTrue(UserProfile.objects.filter(user=new_user).exists())
+
+    
+    
+
 
