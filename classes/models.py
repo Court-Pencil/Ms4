@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.text import slugify
 
 class Category(models.Model):
     name= models.CharField(max_length=50)
@@ -16,6 +17,7 @@ class Category(models.Model):
 
 class StudioClass(models.Model):
     title = models.CharField(max_length=100)
+    slug= models.SlugField(max_length=50, blank=True, null=True)
     category = models.ForeignKey('classes.Category', on_delete=models.CASCADE, related_name='studioclasses')
     instructor = models.CharField(max_length=100)
     date = models.DateField()
@@ -37,8 +39,14 @@ class StudioClass(models.Model):
     def is_full(self):
         return self.spots_remaining == 0
     
+    def save(self, *args, **kwargs):
+         self.slug = slugify(self.title, allow_unicode=False) 
+         super().save()
+    
     class Meta:
         verbose_name_plural = "Studio Classes"
+
+    
     
 class Review(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='reviews')
