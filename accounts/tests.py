@@ -22,7 +22,7 @@ class AuthViewTest(TestCase):
         self.assertEqual(302, response.status_code)
     
     def test_cannot_anon_access_userprofile(self):
-        response = self.client.get("/accounts/userprofile/")
+        response = self.client.get("/accounts/")
         self.assertEqual(302, response.status_code)
 
     def test_logged_in_user_can_access_userprofile(self):
@@ -31,7 +31,7 @@ class AuthViewTest(TestCase):
         password='testpass123'
         )
         self.client.login(username='newuser', password='testpass123')
-        response = self.client.get("/accounts/userprofile/")
+        response = self.client.get("/userprofile/")
         self.assertEqual(200, response.status_code)
 
     def test_user_can_login(self):
@@ -48,13 +48,13 @@ class AuthViewTest(TestCase):
         password='testpass123'
         )
         self.client.login(username='newuser', password='testpass123')
-        response = self.client.get("/accounts/userprofile/edit/")
+        response = self.client.get("/userprofile/edit/")
         self.assertEqual(200, response.status_code)
 
     def test_form_saves_correctly(self):
         new_user = User.objects.create_user(username='newuser', password='testpass123')
         self.client.login(username='newuser', password='testpass123')
-        self.client.post("/accounts/userprofile/edit/", {
+        self.client.post("/userprofile/edit/", {
         'phone_number': '0123456789',
         'bio': 'Updated bio'
         })
