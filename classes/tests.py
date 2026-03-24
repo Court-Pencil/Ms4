@@ -67,6 +67,9 @@ class StudioClassModelTest(TestCase):
 
     def test_studioclass_str_returns_name(self):
         self.assertEqual(str(self.studioclass), "Intro to Pottery")
+
+    def test_studioclass_returns_slug(self):
+        self.assertEqual(str(self.studioclass.slug), "intro-to-pottery")
     
 class BookingModelTest(TestCase):
     def setUp(self):
