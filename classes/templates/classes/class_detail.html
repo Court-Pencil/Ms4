@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm">
+                {% if class_details.image %}
+                <img src="{{ class_details.image.url }}" class="card-img-top" alt="{{ class_details.title }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <h2 class="card-title mb-3">{{ class_details.title }}</h2>
+
+                    <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item">
+                            <strong>Category:</strong> {{ class_details.category.name }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Instructor:</strong> {{ class_details.instructor }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Date:</strong> {{ class_details.date }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Price:</strong> £{{ class_details.price }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Spots Remaining:</strong> {{ class_details.spots_remaining }}
+                        </li>
+                    </ul>
+
+                    {% if class_details.description %}
+                    <p class="card-text">{{ class_details.description }}</p>
+                    {% endif %}
+
+                   
+
+                    {% if class_details.spots_remaining > 0 %}
+                    <a href="#" class="btn btn-primary ms-2">
+                        Book Now
+                    </a>
+                    {% else %}
+                    <button class="btn btn-danger ms-2" disabled>Fully Booked</button>
+                    {% endif %}
+                     <a href="{% url 'class_list' %}" class="btn btn-secondary">
+                        Back to Classes
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
