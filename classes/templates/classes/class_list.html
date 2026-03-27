@@ -1,23 +1,44 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container my-5">
-
+    <section class="class-hero-section py-20 text-white">
+  <div class="container text-center">
+    <h1 class="class-hero-title mb-6">
+      Our Courses
+    </h1>
+    <p class="class-hero-subtitle max-w-2xl mx-auto">
+      Find the perfect course to express your creativity. From pottery to printmaking, 
+      we have something for every artist.
+    </p>
+  </div>
+</section>
     <h2 class="mb-4">Classes</h2>
+    <div class="filter-bar">
+         <a href="?" class="filter-btn">All Classes</a>
+           {% for category in filter_categories %}
+            <a href="?class_type={{ category.slug }}" class="filter-btn">
+            {{ category.name }}
+        </a>
+    {% endfor %}
+    <form action="{% url 'class_list' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+        </form>
+    </div>
 
     {% if class_list %}
-    <div class="row g-4">
+    <div class="row g-4 ">
 
         {% for class in class_list %}
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card course-card  h-100 shadow-sm">
 
                 {% if class.image %}
-                <img src="{{ class.image.url }}" class="card-img-top" alt="{{ class.title }}">
+                <img src="{{ class.image.url }}" class="course-card img" alt="{{ class.title }}">
                 {% endif %}
 
-                <div class="card-body">
-                    <h5 class="card-title">{{ class.title }}</h5>
+                <div class="course-card card-content">
+                    <h5 class="course-title">{{ class.title }}</h5>
 
                     <p class="mb-1"><strong>Category:</strong> {{ class.category.name }}</p>
                     <p class="mb-1"><strong>Instructor:</strong> {{ class.instructor }}</p>
@@ -41,5 +62,19 @@
     {% endif %}
 
 </div>
+
+<script>
+const buttons = document.querySelectorAll(".filter-btn");
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelector(".filter-btn.active")
+            ?.classList.remove("active");
+
+        btn.classList.add("active");
+    });
+});
+</script>
 {% endblock %}
+
 
