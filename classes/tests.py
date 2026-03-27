@@ -131,6 +131,8 @@ class BookingModelTest(TestCase):
         studio_class_bookings = Booking.objects.filter(studio_class=self.studioclass) 
         self.assertEqual(studio_class_bookings.count(), 1)
         
+    
+
 class ReviewModelTest(TestCase):
     def setUp(self):
         self.category = Category.objects.create(
@@ -223,6 +225,17 @@ class ClassViewTest(TestCase):
     def test_public_class_view(self):
         response = self.client.get("/classes/")
         self.assertEqual(200, response.status_code)
+
+class ClassCRUDViewTest(TestCase):
+
+    def test_only_admin_can_acess_the_create_class_view(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
+        self.client.login(username='newuser', password='testpass123')
+        response = self.client.get("/classes/create")
+        self.assertEqual(403, response.status_code)
 
 
     
