@@ -6,9 +6,8 @@ from accounts.models import UserProfile
 from datetime import date
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
-import unittest
-
-
+import decimal
+from decimal import Decimal
 
 
 class CategoryModelTest(TestCase):
@@ -264,6 +263,45 @@ class ClassCRUDViewTest(TestCase):
         self.assertEqual(new_class.price, 50.00)
         self.assertEqual(new_class.description, 'Learn the basics of claymation in this introductory class.')
         self.assertEqual(new_class.is_published, True)  
+
+    def test_edit_class_form_saves_correctly(self):
+        admin = User.objects.create_user(
+        username='court', 
+        password='testpass123',
+        is_staff=True
+        )
+        self.client.login(username='court', password='testpass123')
+        self.category = Category.objects.create(
+            name="Pottery",
+            slug="pottery",
+            description="A class for pottery enthusiasts."
+        )
+        self.studioclass = StudioClass.objects.create(
+            title = 'Intro to Pottery',
+            category = self.category,
+            instructor = 'Steve',
+            date = date(2024, 7, 1),
+            duration = 120,
+            capacity = 10,
+            price = 50.00,
+            description = 'Learn the basics of pottery in this introductory class.',
+            is_published = True,
+        )
+        self.client.post("/classes/Intro to Pottery/edit/", {
+        'title': 'claymation',
+        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id,
+        'instructor': 'Court',      
+        'date': '2024-07-01',
+        'duration': 120,
+        'capacity': 10,
+        'price': 40.00,
+        'description': 'Learn the basics of claymation in this introductory class.',
+        'is_published': True
+        })
+        updated_class = StudioClass.objects.get(id=self.studioclass.id)
+        self.assertEqual(updated_class.title, 'Updated Pottery')
+        self.assertEqual(updated_class.price, Decimal('40.00'))
+
 
 
 
