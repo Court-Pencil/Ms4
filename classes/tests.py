@@ -10,6 +10,7 @@ import unittest
 
 
 
+
 class CategoryModelTest(TestCase):
 
     def setUp(self):
@@ -234,8 +235,36 @@ class ClassCRUDViewTest(TestCase):
         password='testpass123'
         )
         self.client.login(username='newuser', password='testpass123')
-        response = self.client.get("/classes/create")
-        self.assertEqual(403, response.status_code)
+        response = self.client.get("/classes/create/")
+        self.assertEqual(302, response.status_code)
+
+    def test_class_form_saves_correctly(self):
+        admin = User.objects.create_user(
+        username='court', 
+        password='testpass123',
+        is_staff=True
+        )
+        self.client.login(username='court', password='testpass123')
+        self.client.post("/classes/create/", {
+        'title': 'claymation',
+        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id,
+        'instructor': 'Court',      
+        'date': '2024-07-01',
+        'duration': 120,
+        'capacity': 10,
+        'price': 50.00,
+        'description': 'Learn the basics of claymation in this introductory class.',
+        'is_published': True
+        })
+        new_class = StudioClass.objects.get(title='claymation')
+        self.assertEqual(new_class.title, 'claymation')
+        self.assertEqual(new_class.instructor, 'Court')
+        self.assertEqual(new_class.duration, 120)
+        self.assertEqual(new_class.capacity, 10)
+        self.assertEqual(new_class.price, 50.00)
+        self.assertEqual(new_class.description, 'Learn the basics of claymation in this introductory class.')
+        self.assertEqual(new_class.is_published, True)  
+
 
 
     

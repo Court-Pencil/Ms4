@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from classes.models import StudioClass, Category
+from django.contrib.auth.decorators import login_required
+from classes.forms import CreateClassForm
 
 def class_list(request):
     class_list = StudioClass.objects.all()
@@ -18,3 +20,16 @@ def class_list(request):
 def class_details(request, slug):
     class_details = StudioClass.objects.get(slug=slug)
     return render(request, 'classes/class_detail.html', {'class_details': class_details})
+
+@login_required
+def create_class_view(request):
+    if not request.user.is_staff:
+        return redirect('class_list')
+    if request.method == 'POST':
+        form = CreateClassForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('class_list')
+    else:
+        form = CreateClassForm()
+    return render(request, 'classes/create_class_view.html/', {'form': form})
