@@ -33,3 +33,17 @@ def create_class_view(request):
     else:
         form = CreateClassForm()
     return render(request, 'classes/create_class_view.html/', {'form': form})
+
+@login_required
+def edit_class_view(request, slug):
+    if not request.user.is_staff:
+        return redirect('class_list')
+    studioclass = StudioClass.objects.get(slug=slug)
+    if request.method == 'POST':
+        form = CreateClassForm(request.POST, request.FILES, instance=studioclass)
+        if form.is_valid():
+            form.save()
+            return redirect('class_details', slug=studioclass.slug)
+    else:
+        form = CreateClassForm(instance=studioclass)
+    return render(request, 'classes/edit_class_view.html', {'form': form, 'studioclass': studioclass})

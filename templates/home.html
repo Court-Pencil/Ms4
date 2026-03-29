@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section relative overflow-hidden py-20 md:py-32">
+  
+  <!-- Decorative circles -->
+  <div class="decor-circle circle-pink"></div>
+  <div class="decor-circle circle-teal"></div>
+
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      
+      <!-- Hero Text -->
+      <div class="hero-text space-y-6">
+        <div class="inline-block">
+          <span class="hero-rotated hero-rotated-left">Create.</span>
+          <span class="hero-rotated hero-rotated-right">Craft.</span>
+        </div>
+
+        <h2 class="hero-title">Inspire!</h2>
+
+        <p class="hero-subtitle max-w-md">
+          Discover your artistic voice through pottery, printmaking, and more. 
+          Our hands-on courses bring your creative vision to life.
+        </p>
+
+        <div class="hero-buttons flex gap-4 pt-4">
+          <a href="{% url 'classes' %}" class="btn-primary">Explore Courses</a>
+          <a href="#" class="btn-outline">Get Started</a>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="hero-image relative">
+        <div class="image-container relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
+          <img src="https://images.unsplash.com/photo-1767032485319-07e2dae76bb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3R0ZXJ5JTIwY2xhc3MlMjBoYW5kcyUyMGNsYXl8ZW58MXx8fHwxNzc0MzYwMTAyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
+               alt="Pottery class" class="w-full h-[500px] object-cover">
+          <div class="image-badge">
+            <p>Join us!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4 text-center mb-16">
+    <h2 class="feature-title">Why Choose Us?</h2>
+    <p class="feature-subtitle max-w-2xl mx-auto">
+      We're more than just an art studio - we're a creative haven where passion meets skill
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    {% for feature in features %}
+    <div class="feature-card" style="border-bottom-color: {{ feature.color }};">
+      <div class="feature-icon" style="background-color: {{ feature.color }}20; color: {{ feature.color }};">
+        {{ feature.icon|safe }}
+      </div>
+      <h3 style="color: {{ feature.color }};">{{ feature.title }}</h3>
+      <p>{{ feature.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Course Preview Section -->
+<!-- <section class="py-20 bg-gradient-to-b from-cream to-white">
+  <div class="container mx-auto px-4 text-center mb-16">
+    <h2 class="course-preview-title">Popular Courses</h2>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-8">
+    {% for course in courses %}
+    <div class="course-card group relative overflow-hidden rounded-3xl shadow-xl">
+      <div class="aspect-[4/5] overflow-hidden">
+        <img src="{{ course.image_url }}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+      </div>
+      <div class="course-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+        <h3 class="text-3xl mb-2 text-white">{{ course.title }}</h3>
+        <p class="text-white/90 text-sm mb-4">{{ course.subtitle }}</p>
+        <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Course →</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div> -->
+  <!-- Courses Section -->
+<section class="py-20 bg-gradient-to-b from-cream to-white">
+  <div class="container text-center mb-16">
+    <h2 class="course-preview-title">Popular Courses</h2>
+  </div>
+
+  <!-- Bootstrap Carousel -->
+  <div id="coursesCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for chunk in courses|slice:"0::3" %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row gx-4">
+          {% for course in courses|slice:forloop.counter0|add:"0:3" %}
+          <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="course-card group relative overflow-hidden rounded-3xl shadow-xl">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img src="{{ course.image_url }}" alt="{{ course.title }}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              </div>
+              <div class="course-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <h3 class="text-3xl mb-2 text-white">{{ course.title }}</h3>
+                <p class="text-white/90 text-sm mb-4">{{ course.subtitle }}</p>
+                <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Course →</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Carousel controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#coursesCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#coursesCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="text-center mt-12">
+    <a href="{% url 'classes' %}" class="btn-dark">View All Courses</a>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-20 bg-orange relative overflow-hidden text-center text-white">
+  <div class="cta-decor cta-decor-white"></div>
+  <div class="cta-decor cta-decor-red"></div>
+
+  <h2 class="cta-title">Ready to Get Creative?</h2>
+  <p class="cta-subtitle mb-8 max-w-2xl mx-auto">
+    Join our next course and discover the artist within you. Limited spots available!
+  </p>
+  <a href="#" class="btn-white">Book Your Spot Today</a>
+</section>
+{% endblock %}
