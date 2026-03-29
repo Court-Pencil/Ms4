@@ -47,3 +47,13 @@ def edit_class_view(request, slug):
     else:
         form = CreateClassForm(instance=studioclass)
     return render(request, 'classes/edit_class_view.html', {'form': form, 'studioclass': studioclass})
+
+@login_required
+def delete_class_view(request, slug):
+    if not request.user.is_staff:
+        return redirect('class_list')
+    studioclass = StudioClass.objects.get(slug=slug)
+    if request.method == 'POST':
+        studioclass.delete()
+        return redirect('class_list')
+    return render(request, 'classes/class_confirm_delete.html', {'object': studioclass})
