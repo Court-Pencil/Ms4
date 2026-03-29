@@ -311,6 +311,15 @@ class ClassCRUDViewTest(TestCase):
         response = self.client.get("/classes/intro-to-pottery/edit/")
         self.assertEqual(302, response.status_code)
 
+    def test_non_admin_cannot_access_delete_view_first(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
+        self.client.login(username='newuser', password='testpass123')
+        response = self.client.get("/classes/intro-to-pottery/delete/")
+        self.assertEqual(302, response.status_code)
+
        
     
 
