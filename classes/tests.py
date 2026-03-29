@@ -287,7 +287,7 @@ class ClassCRUDViewTest(TestCase):
             description = 'Learn the basics of pottery in this introductory class.',
             is_published = True,
         )
-        self.client.post("/classes/Intro to Pottery/edit/", {
+        self.client.post("/classes/intro-to-pottery/edit/", {
         'title': 'claymation',
         'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id,
         'instructor': 'Court',      
@@ -299,7 +299,7 @@ class ClassCRUDViewTest(TestCase):
         'is_published': True
         })
         updated_class = StudioClass.objects.get(id=self.studioclass.id)
-        self.assertEqual(updated_class.title, 'Updated Pottery')
+        self.assertEqual(updated_class.title, 'claymation')
         self.assertEqual(updated_class.price, Decimal('40.00'))
 
     def test_non_admin_cannot_access_edit_class_view(self):
