@@ -302,6 +302,18 @@ class ClassCRUDViewTest(TestCase):
         self.assertEqual(updated_class.title, 'Updated Pottery')
         self.assertEqual(updated_class.price, Decimal('40.00'))
 
+    def test_non_admin_cannot_access_edit_class_view(self):
+        new_user = User.objects.create_user(
+        username='newuser', 
+        password='testpass123'
+        )
+        self.client.login(username='newuser', password='testpass123')
+        response = self.client.get("/classes/intro-to-pottery/edit/")
+        self.assertEqual(302, response.status_code)
+
+       
+    
+
 
 
 
