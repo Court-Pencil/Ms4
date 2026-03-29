@@ -302,6 +302,7 @@ class ClassCRUDViewTest(TestCase):
         self.assertEqual(updated_class.title, 'claymation')
         self.assertEqual(updated_class.price, Decimal('40.00'))
 
+
     def test_non_admin_cannot_access_edit_class_view(self):
         new_user = User.objects.create_user(
         username='newuser', 
@@ -319,6 +320,35 @@ class ClassCRUDViewTest(TestCase):
         self.client.login(username='newuser', password='testpass123')
         response = self.client.get("/classes/intro-to-pottery/delete/")
         self.assertEqual(302, response.status_code)
+
+    def test_admin_can_delete_class(self):
+        admin = User.objects.create_user(
+        username='court', 
+        password='testpass123',
+        is_staff=True   
+        )
+        self.client.login(username='court', password='testpass123')
+        self.category = Category.objects.create(
+            name="Pottery",
+            slug="pottery",
+            description="A class for pottery enthusiasts."
+        )
+        self.studioclass = StudioClass.objects.create(
+            title = 'Intro to Pottery',
+            category = self.category,
+            instructor = 'Steve',
+            date = date(2024, 7, 1),
+            duration = 120,
+            capacity = 10,
+            price = 50.00,
+            description = 'Learn the basics of pottery in this introductory class.',
+            is_published = True,
+        )
+        response = self.client.post("/classes/intro-to-pottery/delete/")
+        self.assertEqual(response.status_code, 302)
+        with self.assertRaises(StudioClass.DoesNotExist):
+            StudioClass.objects.get(id=self.studioclass.id)
+                
 
        
     
