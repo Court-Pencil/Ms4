@@ -348,7 +348,13 @@ class ClassCRUDViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         with self.assertRaises(StudioClass.DoesNotExist):
             StudioClass.objects.get(id=self.studioclass.id)
-                
+
+    
+    def test_when_anon_user_clicks_book_it_redirects_to_login(self):
+        response = self.client.get("/classes/intro-to-pottery/book/")
+        self.assertEqual(302, response.status_code)
+
+
 
        
     
