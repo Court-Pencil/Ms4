@@ -35,7 +35,7 @@ body {
 
 h1, h2, h3, h4, .navbar-brand {
     font-family: var(--heading-font);
-    color: var(--color-orange);
+    color: var(--color-teal);
 }
 
 h1 { font-size: 2.5rem; }
@@ -67,7 +67,7 @@ p {
 .logo-icon {
     width: 45px;
     height: 45px;
-    background: var(--color-orange);
+    background: var(--color-teal);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -103,7 +103,7 @@ p {
 }
 
 .nav-links a.active {
-    color: var(--color-orange);
+    color: var(--color-yellow);
 }
 
 .nav-links a.active::after {
@@ -113,7 +113,7 @@ p {
     left: 0;
     width: 100%;
     height: 2px;
-    background: var(--color-orange);
+    background: var(--color-yellow);
 }
 
 .container {
@@ -123,19 +123,19 @@ p {
     padding: 30px 0;
 }
 
-.hero-section {
+.class-hero-section {
     background: linear-gradient(to bottom right, var(--color-orange), var(--color-terracotta));
     color: var(--color-cream);
     text-align: center;
 }
 
-.hero-title {
+.class-hero-title {
     font-family: var(--heading-font);
     font-size: 3.5rem; /* mobile first */
     margin-bottom: 1.5rem;
 }
 
-.hero-subtitle {
+.class-hero-subtitle {
     font-family: var(--body-font);
     font-size: 1.25rem;
     color: rgba(255, 251, 245, 0.9);
@@ -169,7 +169,7 @@ p {
 
 .course-title {
     font-family: var(--heading-font);
-    color: var(--color-orange);
+    color: var(--color-teal);
     font-size: 1.2rem;
     margin-bottom: 8px;
 }
@@ -193,7 +193,7 @@ p {
 .btn {
     width: 100%;
     text-align: center;
-    background: var(--color-orange);
+    background: var(--color-pink);
     color: white;
     border: none;
     padding: 10px 18px;
@@ -204,7 +204,7 @@ p {
 }
 
 .btn:hover {
-    background: var(--color-orange-light);
+    background: var(--color-pink-light);
 }
 
 .preview-btn {
@@ -231,24 +231,25 @@ hr {
     font-family: var(--body-font);
     padding: 8px 16px;
     border-radius: 20px;
-    border: 1px solid var(--color-orange);
+    border: 1px solid var(--color-pink);
     background: transparent;
-    color: var(--color-orange);
+    color: var(--color-pink);
     cursor: pointer;
     font-size: 0.85rem;
     transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 .filter-btn:hover {
-    background: var(--color-orange-light);
+    background: var(--color-pink-light);
     color: white;
-    border-color: var(--color-orange-light);
+    border-color: var(--color-pink-light);
 }
 
 .filter-btn.active {
-    background: var(--color-orange);
+    background: var(--color-pink);
     color: white;
-    border-color: var(--color-orange);
+    border-color: var(--color-pink);
     transform: scale(0.95);
 }
 
@@ -259,11 +260,18 @@ hr {
     font-family: var(--body-font);
 }
 
-.footer h2 {
+.footer-heading {
     color: var(--color-cream);
-    font-family: var(--heading-font);
+    font-family: var(--body-font)
+    ;
 }
 
+.footer-text {
+    color: var(--color-cream);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-family: var(--body-font);
+}
 .footer-link {
     color: var(--color-cream);
     text-decoration: none;
@@ -274,7 +282,7 @@ hr {
 }
 
 .footer-link:hover {
-    color: var(--color-orange-light);
+    color: var(--color-pink-light);
 }
 
 .footer-icon {

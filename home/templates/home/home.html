@@ -27,7 +27,7 @@
         </p>
 
         <div class="hero-buttons flex gap-4 pt-4">
-          <a href="{% url 'classes' %}" class="btn-primary">Explore Courses</a>
+          <a href="{% url 'class_list' %}" class="btn-primary">Explore Courses</a>
           <a href="#" class="btn-outline">Get Started</a>
         </div>
       </div>
@@ -47,71 +47,30 @@
   </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-20 bg-white">
-  <div class="container mx-auto px-4 text-center mb-16">
-    <h2 class="feature-title">Why Choose Us?</h2>
-    <p class="feature-subtitle max-w-2xl mx-auto">
-      We're more than just an art studio - we're a creative haven where passion meets skill
-    </p>
-  </div>
 
-  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-    {% for feature in features %}
-    <div class="feature-card" style="border-bottom-color: {{ feature.color }};">
-      <div class="feature-icon" style="background-color: {{ feature.color }}20; color: {{ feature.color }};">
-        {{ feature.icon|safe }}
-      </div>
-      <h3 style="color: {{ feature.color }};">{{ feature.title }}</h3>
-      <p>{{ feature.description }}</p>
-    </div>
-    {% endfor %}
-  </div>
-</section>
-
-<!-- Course Preview Section -->
-<!-- <section class="py-20 bg-gradient-to-b from-cream to-white">
-  <div class="container mx-auto px-4 text-center mb-16">
-    <h2 class="course-preview-title">Popular Courses</h2>
-  </div>
-
-  <div class="grid md:grid-cols-3 gap-8">
-    {% for course in courses %}
-    <div class="course-card group relative overflow-hidden rounded-3xl shadow-xl">
-      <div class="aspect-[4/5] overflow-hidden">
-        <img src="{{ course.image_url }}" alt="{{ course.title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-      </div>
-      <div class="course-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-        <h3 class="text-3xl mb-2 text-white">{{ course.title }}</h3>
-        <p class="text-white/90 text-sm mb-4">{{ course.subtitle }}</p>
-        <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Course →</span>
-      </div>
-    </div>
-    {% endfor %}
-  </div> -->
   <!-- Courses Section -->
 <section class="py-20 bg-gradient-to-b from-cream to-white">
   <div class="container text-center mb-16">
-    <h2 class="course-preview-title">Popular Courses</h2>
+    <h2 class="course-preview-title">Popular Classes</h2>
   </div>
 
   <!-- Bootstrap Carousel -->
   <div id="coursesCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      {% for chunk in courses|slice:"0::3" %}
+      {% for chunk in class_list|slice:"0::3" %}
       <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <div class="row gx-4">
-          {% for course in courses|slice:forloop.counter0|add:"0:3" %}
+          {% for class in class_list|slice:forloop.counter0|add:"0:3" %}
           <div class="col-12 col-md-6 col-lg-4 mb-4">
             <div class="course-card group relative overflow-hidden rounded-3xl shadow-xl">
               <div class="aspect-[4/5] overflow-hidden">
-                <img src="{{ course.image_url }}" alt="{{ course.title }}"
+                <img src="{{ class_list.image_url }}" alt="{{ class_list.title }}"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
               </div>
               <div class="course-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <h3 class="text-3xl mb-2 text-white">{{ course.title }}</h3>
-                <p class="text-white/90 text-sm mb-4">{{ course.subtitle }}</p>
-                <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Course →</span>
+                <h3 class="text-3xl mb-2 text-white">{{ class_list.title }}</h3>
+                <p class="text-white/90 text-sm mb-4">{{ class_list.subtitle }}</p>
+                <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Class →</span>
               </div>
             </div>
           </div>
@@ -132,7 +91,7 @@
     </button>
   </div>
   <div class="text-center mt-12">
-    <a href="{% url 'classes' %}" class="btn-dark">View All Courses</a>
+    <a href="{% url 'class_list' %}" class="btn-dark">View All Classes</a>
   </div>
 </section>
 

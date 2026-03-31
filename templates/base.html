@@ -46,14 +46,14 @@
                 <ul class="navbar-nav me-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href='#'> 
+                        <a class="nav-link" href="{% url 'home' %}"> 
                              Home
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href='#'>
-                            classes
+                        <a class="nav-link" href="{% url 'class_list' %}">
+                            Classes
                         </a>
                     </li>
 
@@ -132,9 +132,29 @@
   <div class="container">
     <div class="row g-4">
 
-      <!-- Contact / Social -->
+        <div class="col-md-4 col-12">
+        <h2 class="fw-bold mb-3 h6 footer-heading">Project Studio</h2>
+            <p class="mb-0 footer-text">
+                Unleash your creativity through our hands-on art and craft courses.
+            </p>
+        </div>
+
+
+     
+      <!-- Quick links -->
       <div class="col-md-4 col-12">
-        <h2 class="fw-bold mb-3 h6">Contact</h2>
+        <h2 class="fw-bold mb-3 h6 footer-heading">Quick links</h2>
+        <ul class="list-unstyled">
+          <li><a href="#" class="footer-link">Home</a></li>
+          <li><a href="#" class="footer-link">Courses</a></li>
+          <li><a href="#" class="footer-link">About</a></li>
+          <li><a href="#" class="footer-link">My Bookings</a></li>
+        </ul>
+      </div>
+
+       <!-- Contact / Social -->
+      <div class="col-md-4 col-12">
+        <h2 class="fw-bold mb-3 h6 footer-heading">Contact</h2>
         <p class="mb-2">
           <a href="mailto:hello@creativecanvas.com" class="footer-link">
             <span class="footer-icon">📧</span> hello@creativecanvas.com
@@ -147,16 +167,6 @@
         </p>
       </div>
 
-      <!-- Quick links -->
-      <div class="col-md-4 col-12">
-        <h2 class="fw-bold mb-3 h6">Quick links</h2>
-        <ul class="list-unstyled">
-          <li><a href="#" class="footer-link">Home</a></li>
-          <li><a href="#" class="footer-link">Courses</a></li>
-          <li><a href="#" class="footer-link">About</a></li>
-          <li><a href="#" class="footer-link">My Bookings</a></li>
-        </ul>
-      </div>
       </div>
 </footer>
     <!-- Bootstrap JS -->
