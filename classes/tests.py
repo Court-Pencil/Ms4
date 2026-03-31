@@ -351,7 +351,7 @@ class ClassCRUDViewTest(TestCase):
 
     
     def test_when_anon_user_clicks_book_it_redirects_to_login(self):
-        response = self.client.get("/classes/intro-to-pottery/book/")
+        response = self.client.get("/bookings/intro-to-pottery/book/")
         self.assertEqual(302, response.status_code)
 
 
