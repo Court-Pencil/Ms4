@@ -354,6 +354,39 @@ class ClassCRUDViewTest(TestCase):
         response = self.client.get("/bookings/intro-to-pottery/book/")
         self.assertEqual(302, response.status_code)
 
+class ReviewViewTest(TestCase):
+
+        def setUp(self):
+            self.category = Category.objects.create(
+                name="Pottery",
+                slug="pottery",
+                description="A class for pottery enthusiasts."
+            )
+            self.studioclass = StudioClass.objects.create(
+                title = 'Intro to Pottery',
+                category = self.category,
+                instructor = 'Steve',
+                date = date(2024, 7, 1),
+                duration = 120,
+                capacity = 10,
+                price = 50.00,
+                description = 'Learn the basics of pottery in this introductory class.',
+                is_published = True,
+            )
+            self.user = User.objects.create_user(username='court', password='testuser123')
+            self.booking = Booking.objects.create(
+            user=self.user,
+            studio_class=self.studioclass,
+            status='confirmed',
+            stripe_payment_id='test123'
+            )
+        def test_logged_in_user_can_access_review_form(self):
+            self.client.login(username='court', password='testuser123')
+            response = self.client.get("/classes/intro-to-pottery/")
+            self.assertEqual(200, response.status_code)
+        
+
+
 
 
        
