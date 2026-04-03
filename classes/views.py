@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from classes.models import StudioClass, Category
 from django.contrib.auth.decorators import login_required
-from classes.forms import CreateClassForm
+from classes.forms import CreateClassForm, ReviewForm
+from bookings.models import Booking
 
 def class_list(request):
     class_list = StudioClass.objects.all()
@@ -19,7 +20,12 @@ def class_list(request):
 
 def class_details(request, slug):
     class_details = StudioClass.objects.get(slug=slug)
-    return render(request, 'classes/class_detail.html', {'class_details': class_details})
+    if request.user.is_authenticated:
+        booked_class = Booking.objects.filter(user=request.user, studio_class=class_details, status='confirmed').exists()
+    else:
+        booked_class = False
+    form = ReviewForm()
+    return render(request, 'classes/class_detail.html', {'class_details': class_details, 'booked_class': booked_class, 'review_form': form})
 
 @login_required
 def create_class_view(request):
@@ -33,6 +39,8 @@ def create_class_view(request):
     else:
         form = CreateClassForm()
     return render(request, 'classes/create_class_view.html/', {'form': form})
+
+
 
 @login_required
 def edit_class_view(request, slug):

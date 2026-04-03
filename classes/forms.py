@@ -1,5 +1,5 @@
 from django import forms
-from classes.models import StudioClass
+from classes.models import StudioClass, Review
 
 
 class CreateClassForm(forms.ModelForm):
@@ -20,4 +20,15 @@ class CreateClassForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'description': forms.Textarea(attrs={'rows': 4}),
+        }
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = [
+                  'rating', 
+                  'comment', 
+                 ]
+        widgets = {
+            'comment': forms.Textarea(attrs={'rows': 4}),
         }

@@ -49,6 +49,14 @@
                         Back to Classes
                     </a>
                 </div>
+                {% if booked_class %}
+                    <h3>Leave a Review</h3>
+                    <form method="POST" action="{% url 'class_details' class_details.slug %}">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit">Submit Review</button>
+                    </form>
+                    {% endif %}
             </div>
 
         </div>
