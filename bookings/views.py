@@ -25,9 +25,11 @@ def stripe_checkout(request, slug):
             'quantity': 1,
         }],
         mode='payment',
-        success_url=request.build_absolute_uri('/book/success') + '?success=true',
+        success_url=request.build_absolute_uri('/bookings/book/success/') + '?success=true',
         cancel_url=request.build_absolute_uri(f'/classes/{slug}/'),
     )
     return redirect(session.url, code=303) 
+
+
 def success(request):
     return render(request, 'bookings/success.html')

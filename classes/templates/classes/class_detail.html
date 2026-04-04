@@ -38,7 +38,7 @@
 
                     {% if user.is_authenticated %}
                     {% if class_details.spots_remaining > 0 %}
-                        <a href="{% url 'booking_page' class_details.slug %}" class="btn btn-primary ms-2">
+                        <a href="{% url 'stripe_checkout' class_details.slug %}" class="btn btn-primary ms-2">
                         Book Now
                         </a>
 
