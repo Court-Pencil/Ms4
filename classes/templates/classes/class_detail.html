@@ -36,20 +36,27 @@
                     <p class="card-text">{{ class_details.description }}</p>
                     {% endif %}
 
-                   
-
+                    {% if user.is_authenticated %}
                     {% if class_details.spots_remaining > 0 %}
-                    <a href="#" class="btn btn-primary ms-2">
+                        <a href="{% url 'booking_page' class_details.slug %}" class="btn btn-primary ms-2">
                         Book Now
-                    </a>
+                        </a>
+
                     {% else %}
-                    <button class="btn btn-danger ms-2" disabled>Fully Booked</button>
+                        <button class="btn btn-danger ms-2" disabled>Fully Booked</button>
                     {% endif %}
-                     <a href="{% url 'class_list' %}" class="btn btn-secondary">
-                        Back to Classes
-                    </a>
-                </div>
-                {% if booked_class %}
+                    {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link btn btn-primary ms-2" href="{% url 'account_login' %}">
+                            Login to book classes
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+
+    
+                    {% if user.is_authenticated %}
+                    {% if bookings %}
                     <h3>Leave a Review</h3>
                     <form method="POST" action="{% url 'class_details' class_details.slug %}">
                     {% csrf_token %}
@@ -63,4 +70,5 @@
     </div>
 
 </div>
+{% endif %}
 {% endblock %}
