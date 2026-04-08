@@ -8,6 +8,7 @@ from django.http import HttpResponse
 import json
 from .models import Booking
 from django.contrib.auth.models import User
+from datetime import date
 
 
 
@@ -74,3 +75,10 @@ def stripe_webhook(request):
 
 def success(request):
     return render(request, 'bookings/success.html')
+
+@login_required
+def my_bookings(request):
+    past_bookings = Booking.objects.filter(user=request.user, status='confirmed', studio_class__date__lt=date.today())
+    upcoming_bookings = Booking.objects.filter(user=request.user, status='confirmed', studio_class__date__gte=date.today())
+    return render(request, 'bookings/my_bookings.html', {'past_bookings': past_bookings, 'upcoming_bookings': upcoming_bookings})
+
