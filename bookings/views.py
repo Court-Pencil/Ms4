@@ -82,3 +82,16 @@ def my_bookings(request):
     upcoming_bookings = Booking.objects.filter(user=request.user, status='confirmed', studio_class__date__gte=date.today())
     return render(request, 'bookings/my_bookings.html', {'past_bookings': past_bookings, 'upcoming_bookings': upcoming_bookings})
 
+@login_required
+def cancel_booking(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    if not request.user == booking.user:
+        return redirect('my_bookings')
+    if request.method == 'GET':
+        return render(request, 'bookings/cancel_booking.html', {'booking': booking})
+    if request.method == 'POST':
+        booking.delete()    
+    return redirect('my_bookings')
+    
+    
+

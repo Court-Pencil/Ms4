@@ -1,0 +1,36 @@
+{ % extends 'base.html' % }
+
+{% block content % }
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="mb-4 text-center">Cancel Booking</h2>
+
+        <p class="text-center">
+          Are you sure you want to cancel this booking?
+        </p>
+
+        <div class="alert alert-warning">
+          <strong>{{ booking.studio_class.title }}</strong><br>
+          <strong>Date:</strong> {{ booking.studio_class.date|date:"d/m/Y" }}<br>
+          <strong>Time:</strong> {{ booking.studio_class.duration }}
+        </div>
+
+        <form method="post">
+          {% csrf_token %}
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-danger">
+              Yes, Cancel Booking
+            </button>
+            <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary">
+              No, Keep Booking
+            </a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
