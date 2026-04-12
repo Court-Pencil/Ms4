@@ -74,7 +74,8 @@ def stripe_webhook(request):
    
 
 def success(request):
-    return render(request, 'bookings/success.html')
+    booking_sucess = Booking.objects.filter(user=request.user, status='confirmed').order_by('-booked_at').first()
+    return render(request, 'bookings/success.html', {'booking': booking_sucess})
 
 @login_required
 def my_bookings(request):

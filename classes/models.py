@@ -39,6 +39,17 @@ class StudioClass(models.Model):
     def is_full(self):
         return self.spots_remaining == 0
     
+    @property
+    def duration_display(self):
+        hours = self.duration // 60
+        minutes = self.duration % 60
+        if hours > 0 and minutes > 0:
+            return f"{hours}h {minutes}m"
+        elif hours > 0:
+            return f"{hours}h"
+        else:
+            return f"{minutes}m"
+
     def save(self, *args, **kwargs):
          self.slug = slugify(self.title, allow_unicode=False) 
          super().save()
