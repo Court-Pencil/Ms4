@@ -9,6 +9,7 @@ import json
 from .models import Booking
 from django.contrib.auth.models import User
 from datetime import date
+from django.contrib import messages
 
 
 
@@ -91,7 +92,8 @@ def cancel_booking(request, booking_id):
     if request.method == 'GET':
         return render(request, 'bookings/cancel_booking.html', {'booking': booking})
     if request.method == 'POST':
-        booking.delete()    
+        booking.delete()  
+        messages.success(request, 'Your booking has been cancelled.')  
     return redirect('my_bookings')
     
     
