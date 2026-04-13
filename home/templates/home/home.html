@@ -1,52 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 <!-- Hero Section -->
-<section class="hero-section relative overflow-hidden py-20 md:py-32">
-  
-  <!-- Decorative circles -->
-  <div class="decor-circle circle-pink"></div>
-  <div class="decor-circle circle-teal"></div>
-
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<section class="hero-section py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
       
       <!-- Hero Text -->
-      <div class="hero-text space-y-6">
-        <div class="inline-block">
-          <span class="hero-rotated hero-rotated-left">Create.</span>
-          <span class="hero-rotated hero-rotated-right">Craft.</span>
-        </div>
-
-        <h2 class="hero-title">Inspire!</h2>
-
-        <p class="hero-subtitle max-w-md">
+      <div class="col-12 col-md-6">
+        <p class="hero-rotated">Create. Craft.</p>
+        <h1 class="hero-title">Inspire!</h1>
+        <p class="hero-subtitle">
           Discover your artistic voice through pottery, printmaking, and more. 
           Our hands-on courses bring your creative vision to life.
         </p>
-
-        <div class="hero-buttons flex gap-4 pt-4">
-          <a href="{% url 'class_list' %}" class="btn-primary">Explore Courses</a>
-          <a href="#" class="btn-outline">Get Started</a>
+        <div class="d-flex gap-3 mt-4">
+          <a href="{% url 'class_list' %}" class="btn btn-primary btn-lg">Explore Courses</a>
+          <a href="{% url 'account_signup' %}" class="btn btn-outline-secondary btn-lg">Get Started</a>
         </div>
       </div>
 
       <!-- Hero Image -->
-      <div class="hero-image relative">
-        <div class="image-container relative rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
-          <img src="https://images.unsplash.com/photo-1767032485319-07e2dae76bb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3R0ZXJ5JTIwY2xhc3MlMjBoYW5kcyUyMGNsYXl8ZW58MXx8fHwxNzc0MzYwMTAyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" 
-               alt="Pottery class" class="w-full h-[500px] object-cover">
-          <div class="image-badge">
-            <p>Join us!</p>
-          </div>
-        </div>
+      <div class="col-12 col-md-6">
+        <img src="https://images.unsplash.com/photo-1767032485319-07e2dae76bb6?w=800" 
+             alt="Pottery class hands shaping clay" 
+             class="img-fluid rounded-4 shadow-lg hero-img">
       </div>
 
     </div>
   </div>
 </section>
-
 
   <!-- Courses Section -->
 <section class="py-20 bg-gradient-to-b from-cream to-white">

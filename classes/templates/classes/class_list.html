@@ -14,15 +14,15 @@
 </section>
 
 <!-- Filter Bar -->
-<div class="filter-section sticky-top bg-white border-bottom">
+<div class="filter-bar sticky-top bg-white border-bottom">
   <div class="container py-3 d-flex flex-wrap align-items-center gap-2">
 
     <span class="fw-semibold me-2">Filter:</span>
 
-    <a href="?" class="filter-pill">All Classes</a>
+    <a href="?" class="filter-btn">All Classes</a>
 
     {% for category in filter_categories %}
-      <a href="?class_type={{ category.slug }}" class="filter-pill">
+      <a href="?class_type={{ category.slug }}" class="filter-btn">
         {{ category.name }}
       </a>
     {% endfor %}
