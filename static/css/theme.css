@@ -304,9 +304,6 @@ hr {
 .footer-link {
     color: var(--color-cream);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
     transition: all 0.2s ease;
 }
 

@@ -62,14 +62,17 @@
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section py-20 bg-orange relative overflow-hidden text-center text-white">
-  <div class="cta-decor cta-decor-white"></div>
-  <div class="cta-decor cta-decor-red"></div>
-
-  <h2 class="cta-title">Ready to Get Creative?</h2>
-  <p class="cta-subtitle mb-8 max-w-2xl mx-auto">
-    Join our next course and discover the artist within you. Limited spots available!
-  </p>
-  <a href="#" class="btn-white">Book Your Spot Today</a>
+<section class="py-5 text-center text-white" style="background: linear-gradient(to right, var(--color-pink), var(--color-orange));">
+  <div class="px-4 py-4">
+    <h2 style="font-family: var(--heading-font); color: white; font-size: 3rem;">Ready to Get Creative?</h2>
+    <p class="lead mb-4 " style="color: white;">
+      Join our next course and discover the artist within you. Limited spots available!
+    </p>
+    <a href="{% url 'class_list' %}" class="btn btn-lg px-5 py-3" 
+       style="background-color: white; color: var(--color-orange); border-radius: 50px; font-family: var(--heading-font); font-size: 1.7rem;">
+      Book Your Spot Today
+    </a>
+  </div>
 </section>
+
 {% endblock %}
