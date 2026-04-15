@@ -64,7 +64,13 @@
             <h5 class="course-title">{{ class.title }}</h5>
 
             <p><strong>Instructor:</strong> {{ class.instructor }}</p>
-            <p><strong>Spots:</strong> {{ class.spots_remaining }}</p>
+            {% if class.spots_remaining <= 2 %}
+               <p class="text-danger fw-bold">Only {{ class.spots_remaining }} spots left!</p>
+            {% elif class.spots_remaining <= 5 %}
+              <p class="text-warning fw-bold">Hurry! Only {{ class.spots_remaining }} spots remaining.</p>
+            {% else %}
+              <p class="text-success fw-bold">{{ class.spots_remaining }} spots available.</p>
+            {% endif %}
 
             <div class="course-footer">
               <span class="course-price">£{{ class.price }}</span>
