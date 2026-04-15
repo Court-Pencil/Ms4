@@ -32,49 +32,32 @@
 </section>
 
   <!-- Courses Section -->
-<section class="py-20 bg-gradient-to-b from-cream to-white">
-  <div class="container text-center mb-16">
-    <h2 class="course-preview-title">Popular Classes</h2>
-  </div>
-
-  <!-- Bootstrap Carousel -->
-  <div id="coursesCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      {% for chunk in class_list|slice:"0::3" %}
-      <div class="carousel-item {% if forloop.first %}active{% endif %}">
-        <div class="row gx-4">
-          {% for class in class_list|slice:forloop.counter0|add:"0:3" %}
-          <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <div class="course-card group relative overflow-hidden rounded-3xl shadow-xl">
-              <div class="aspect-[4/5] overflow-hidden">
-                <img src="{{ class_list.image_url }}" alt="{{ class_list.title }}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-              </div>
-              <div class="course-info absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <h3 class="text-3xl mb-2 text-white">{{ class_list.title }}</h3>
-                <p class="text-white/90 text-sm mb-4">{{ class_list.subtitle }}</p>
-                <span class="course-btn bg-orange text-white px-4 py-2 rounded-full text-sm">View Class →</span>
-              </div>
-            </div>
+  <!-- Bootstrap Carousel --><section class="py-5" style="background-color: var(--color-cream);">
+  <div class="container">
+    <h2 class="text-center mb-5">Popular Classes</h2>
+    <div class="row g-4">
+      {% for class in class_list %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+          {% if class.image %}
+          <img src="{{ class.image.url }}" alt="{{ class.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+          {% endif %}
+          <div class="card-body">
+            <span class="badge mb-2" style="background-color: var(--color-teal);">{{ class.category.name }}</span>
+            <h3 class="card-title h5">{{ class.title }}</h3>
+            <p class="card-text text-muted small">{{ class.description|truncatewords:15 }}</p>
           </div>
-          {% endfor %}
+          <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+            <span style="color: var(--color-orange); font-weight: bold;">£{{ class.price }}</span>
+            <a href="{% url 'class_details' class.slug %}" class="btn btn-sm btn-outline-secondary">View Class</a>
+          </div>
         </div>
       </div>
       {% endfor %}
     </div>
-
-    <!-- Carousel controls -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#coursesCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#coursesCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <div class="text-center mt-12">
-    <a href="{% url 'class_list' %}" class="btn-dark">View All Classes</a>
+    <div class="text-center mt-5">
+      <a href="{% url 'class_list' %}" class="btn btn-lg" style="background-color: var(--color-teal); color: white;">View All Classes</a>
+    </div>
   </div>
 </section>
 
