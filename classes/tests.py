@@ -8,7 +8,7 @@ from django.db import IntegrityError
 from django.core.exceptions import ValidationError
 import decimal
 from decimal import Decimal
-
+import datetime
 
 class CategoryModelTest(TestCase):
 
@@ -40,6 +40,7 @@ class StudioClassModelTest(TestCase):
             category = self.category,
             instructor = 'Steve',
             date = date(2024, 7, 1),
+            start_time = datetime.time(10, 0),  # 10:00 AM
             duration = 120,
             capacity = 10,
             price = 50.00,
@@ -70,6 +71,9 @@ class StudioClassModelTest(TestCase):
 
     def test_studioclass_returns_slug(self):
         self.assertEqual(str(self.studioclass.slug), "intro-to-pottery")
+
+    def test_start_time_field_saves_correctly(self):
+        self.assertEqual(self.studioclass.start_time, datetime.time(10, 0))
     
 class BookingModelTest(TestCase):
     def setUp(self):
