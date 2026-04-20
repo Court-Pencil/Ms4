@@ -22,6 +22,7 @@ class StudioClass(models.Model):
     instructor = models.CharField(max_length=100)
     date = models.DateField()
     duration = models.IntegerField()
+    start_time = models.TimeField(null=True, blank=True)
     capacity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField(upload_to='classes/', blank=True, null=True)
