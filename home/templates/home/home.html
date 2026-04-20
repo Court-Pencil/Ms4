@@ -33,24 +33,24 @@
 </section>
 
   <!-- Courses Section -->
-  <!-- Bootstrap Carousel --><section class="py-5" style="background-color: var(--color-cream);">
+  <section class="py-5" style="background-color: var(--color-cream);">
   <div class="container">
     <h2 class="text-center mb-5">Popular Classes</h2>
-    <div class="row g-4">
+    <div class="row g-5">
       {% for class in class_list %}
-      <div class="col-12 col-md-6 col-lg-4">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
           {% if class.image %}
           <img src="{{ class.image.url }}" alt="{{ class.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
           {% endif %}
-          <div class="card-body">
+          <div class="card-body pb-3 px-3">
             <span class="badge mb-2" style="background-color: var(--color-teal);">{{ class.category.name }}</span>
             <h3 class="card-title h5">{{ class.title }}</h3>
-            <p class="card-text text-muted small">{{ class.description|truncatewords:15 }}</p>
+            <p class="card-text text-muted small">{{ class.description|truncatewords:20 }}</p>
           </div>
-          <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+          <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center px-3 py-3">
             <span style="color: var(--color-orange); font-weight: bold;">£{{ class.price }}</span>
-            <a href="{% url 'class_details' class.slug %}" class="btn btn-sm btn-outline-secondary">View Class</a>
+            <a href="{% url 'class_details' class.slug %}" class="btn btn-sm">View Class</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-5 text-center text-white" style="background: linear-gradient(to right, var(--color-pink), var(--color-orange));">
+<section class="py-5 text-center text-white mb-4" style="background: linear-gradient(to right, var(--color-pink), var(--color-orange));">
   <div class="px-4 py-4">
     <h2 style="font-family: var(--heading-font); color: white; font-size: 3rem;">Ready to Get Creative?</h2>
     <p class="lead mb-4 " style="color: white;">

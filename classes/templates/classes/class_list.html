@@ -5,8 +5,8 @@
 <!-- Hero -->
 <section class="course-hero text-white text-center d-flex align-items-center">
   <div class="container">
-    <h1 class="course-hero-title">Our Courses</h1>
-    <p class="course-hero-subtitle">
+    <h2 class="course-hero-title text-white mb-4">Our Courses</h2>
+    <p class="course-hero-subtitle text-white">
       Find the perfect course to express your creativity. From pottery to printmaking,
       we have something for every artist.
     </p>
@@ -14,20 +14,20 @@
 </section>
 
 <!-- Filter Bar -->
-<div class="filter-bar sticky-top bg-white border-bottom">
+<div class="filter-bar py-3">
   <div class="container py-3 d-flex flex-wrap align-items-center gap-2">
 
     <span class="fw-semibold me-2">Filter:</span>
-
-    <a href="?" class="filter-btn">All Classes</a>
-
+    {% with current=request.GET.class_type %}
+    <a href="?" class="filter-btn {% if not current %}filter-btn-active{% endif %}">All Classes</a>
     {% for category in filter_categories %}
-      <a href="?class_type={{ category.slug }}" class="filter-btn">
+      <a href="?class_type={{ category.slug }}" class="filter-btn {% if current == category.slug %}filter-btn-active{% endif %}">
         {{ category.name }}
       </a>
     {% endfor %}
+    {% endwith %}
 
-    <form action="{% url 'class_list' %}" method="get" class="ms-auto">
+    <form action="{% url 'class_list' %}" method="get" class="w-100 mt-2 mt-md-0 ms-md-auto" style="max-width: 250px;">
       <input name="search" type="text" placeholder="Search..."
              class="form-control search-input">
     </form>
@@ -36,7 +36,7 @@
 </div>
 
 <!-- Courses -->
-<div class="course-section py-5">
+<div class="course-section py-3">
   <div class="container">
 
     {% if class_list %}
@@ -55,15 +55,20 @@
 
           <div class="course-card-body">
 
-            <div class="course-meta">
+            <div class="course-meta mb-2">
               <span class="badge bg-accent">{{ class.category.name }}</span>
-              <span class="mx-2">•</span>
-              <span>{{ class.date }}</span>
             </div>
 
             <h5 class="course-title">{{ class.title }}</h5>
 
             <p><strong>Instructor:</strong> {{ class.instructor }}</p>
+
+            <p class="course-date">{{ class.date|date:"l, j F Y" }}</p>
+
+            {% if class.start_time %}
+              <p class="course-date">🕐 {{ class.start_time|time:"g:i A" }} - {{ class.end_time|time:"g:i A" }}</p>
+            {% endif %}
+
             {% if class.spots_remaining <= 2 %}
                <p class="text-danger fw-bold">Only {{ class.spots_remaining }} spots left!</p>
             {% elif class.spots_remaining <= 5 %}

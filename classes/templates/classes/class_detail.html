@@ -24,8 +24,13 @@
                         <li class="list-group-item">
                             <strong>Date:</strong> {{ class_details.date }}
                         </li>
+                         {% if class_details.start_time %}
                         <li class="list-group-item">
-                            <strong>Price:</strong> £{{ class_details.price }}
+                            <strong>Time:</strong> {{ class_details.start_time|time:"g:i A" }} - {{ class_details.end_time|time:"g:i A" }}
+                        </li>
+                        {% endif %}
+                        <li class="list-group-item">
+                        <strong>Price:</strong> £{{ class_details.price }}
                         </li>
                         <li class="list-group-item">
                             <strong>Spots Remaining:</strong> {{ class_details.spots_remaining }}
