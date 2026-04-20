@@ -74,6 +74,10 @@ class StudioClassModelTest(TestCase):
 
     def test_start_time_field_saves_correctly(self):
         self.assertEqual(self.studioclass.start_time, datetime.time(10, 0))
+
+    def test_end_time_calculates_correctly(self):
+        expected_end_time = (datetime.datetime.combine(date.today(), self.studioclass.start_time) + datetime.timedelta(minutes=self.studioclass.duration)).time()
+        self.assertEqual(self.studioclass.end_time, expected_end_time)
     
 class BookingModelTest(TestCase):
     def setUp(self):

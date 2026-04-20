@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
+from datetime import datetime, timedelta
 
 class Category(models.Model):
     name= models.CharField(max_length=50)
@@ -50,6 +51,14 @@ class StudioClass(models.Model):
             return f"{hours}h"
         else:
             return f"{minutes}m"
+        
+    @property
+    def end_time(self):
+        if self.start_time:
+            start_datetime = datetime.combine(self.date, self.start_time)
+            end_datetime = start_datetime + timedelta(minutes=self.duration)
+            return end_datetime.time()
+        return None
 
     def save(self, *args, **kwargs):
          self.slug = slugify(self.title, allow_unicode=False) 
