@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock %}
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section py-5 position-relative overflow-hidden">

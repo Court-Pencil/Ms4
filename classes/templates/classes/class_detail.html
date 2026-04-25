@@ -1,79 +1,108 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+<link href="{% static 'css/classes.css' %}" rel="stylesheet">
+{% endblock %}
 {% block content %}
-<div class="container my-5">
 
+
+<div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
 
-            <div class="card shadow-sm">
-                {% if class_details.image %}
-                <img src="{{ class_details.image.url }}" class="card-img-top" alt="{{ class_details.title }}">
+            
+        {% if class_details.image %}
+            <div class="class-detail-image-wrapper">
+                <img src="{{ class_details.image.url }}" alt="{{ class_details.title }}">
+                <span class="badge class-detail-badge class-detail-badge-overlay">
+                    {{ class_details.category.name }}
+                </span>
+            </div>
+
+            {% endif %}
+
+            <div class="class-detail-content">
+                <h1 class="class-detail-title">{{ class_details.title }}</h1>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="class-detail-info-card teal">
+                        <small class="class-detail-info-label">Instructor</small>
+                        <p class="mb-0 fw-bold">{{ class_details.instructor }}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="class-detail-info-card orange">
+                        <small class="class-detail-info-label">Price</small>
+                        <p class="mb-0 fw-bold">£{{ class_details.price }}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="class-detail-info-card pink">
+                        <small class="class-detail-info-label">Date</small>
+                        <p class="mb-0 fw-bold">{{ class_details.date|date:"j F Y" }}</p>
+                    </div>
+                </div>
+                {% if class_details.start_time %}
+                <div class="col-6">
+                    <div class="class-detail-info-card sage">
+                        <small class="class-detail-info-label">Time</small>
+                        <p class="mb-0 fw-bold">{{ class_details.start_time|time:"g:i A" }} - {{ class_details.end_time|time:"g:i A" }}</p>
+                    </div>
+                </div>
                 {% endif %}
+            </div>
 
-                <div class="card-body">
-                    <h2 class="card-title mb-3">{{ class_details.title }}</h2>
+            <div class="mb-4">
+                {% if class_details.spots_remaining <= 2 %}
+                    <p class="text-danger fw-bold">🔴 Only {{ class_details.spots_remaining }} spots left!</p>
+                {% elif class_details.spots_remaining <= 5 %}
+                    <p class="fw-bold text-warning">🟡 Hurry! Only {{ class_details.spots_remaining }} spots remaining.</p>
+                {% else %}
+                    <p class="fw-bold" style="color: var(--color-teal);">🟢 {{ class_details.spots_remaining }} spots available.</p>
+                {% endif %}
+            </div>
 
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item">
-                            <strong>Category:</strong> {{ class_details.category.name }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Instructor:</strong> {{ class_details.instructor }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Date:</strong> {{ class_details.date }}
-                        </li>
-                         {% if class_details.start_time %}
-                        <li class="list-group-item">
-                            <strong>Time:</strong> {{ class_details.start_time|time:"g:i A" }} - {{ class_details.end_time|time:"g:i A" }}
-                        </li>
-                        {% endif %}
-                        <li class="list-group-item">
-                        <strong>Price:</strong> £{{ class_details.price }}
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Spots Remaining:</strong> {{ class_details.spots_remaining }}
-                        </li>
-                    </ul>
+            {% if class_details.description %}
+            <div class="mb-4">
+                <h3 class="class-detail-section-title">About this class</h3>
+                <p class="class-detail-description">{{ class_details.description }}</p>
+            </div>
+            {% endif %}
 
-                    {% if class_details.description %}
-                    <p class="card-text">{{ class_details.description }}</p>
-                    {% endif %}
-
-                    {% if user.is_authenticated %}
+            <div class="d-flex gap-3 flex-wrap mb-5">
+                {% if user.is_authenticated %}
                     {% if class_details.spots_remaining > 0 %}
-                        <a href="{% url 'stripe_checkout' class_details.slug %}" class="btn btn-primary ms-2">
-                        Book Now
+                        <a href="{% url 'stripe_checkout' class_details.slug %}" class="btn btn-lg btn-book-now">
+                            Book Now — £{{ class_details.price }}
                         </a>
-
                     {% else %}
-                        <button class="btn btn-danger ms-2" disabled>Fully Booked</button>
+                        <button class="btn btn-lg btn-book-now disabled">Fully Booked</button>
                     {% endif %}
-                    {% else %}
-                        <li class="nav-item">
-                        <a class="nav-link btn btn-primary ms-2" href="{% url 'account_login' %}">
-                            Login to book classes
-                        </a>
-                    </li>
-                    {% endif %}
-                    
+                {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-lg btn-book-now">
+                        Login to Book
+                    </a>
+                {% endif %}
+                <a href="{% url 'class_list' %}" class="btn btn-lg btn-back-classes">
+                    ← Back to Classes
+                </a>
+            </div>
 
-    
-                    {% if user.is_authenticated %}
-                    {% if bookings %}
-                    <h3>Leave a Review</h3>
-                    <form method="POST" action="{% url 'class_details' class_details.slug %}">
+            {% if user.is_authenticated and booked_class %}
+            <div class="class-detail-review mt-4">
+                <h3 class="class-detail-section-title">Leave a Review</h3>
+                <form method="POST" action="{% url 'class_details' class_details.slug %}">
                     {% csrf_token %}
                     {{ review_form.as_p }}
-                    <button type="submit">Submit Review</button>
-                    </form>
-                    {% endif %}
+                    <button type="submit" class="btn btn-submit-review">Submit Review</button>
+                </form>
             </div>
+            {% endif %}
 
         </div>
     </div>
-
 </div>
-{% endif %}
+
 {% endblock %}

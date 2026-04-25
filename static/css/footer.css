@@ -1,0 +1,55 @@
+
+.footer {
+    background-color: var(--dark-walnut);
+    color: var(--color-cream);
+    font-family: var(--body-font);
+    
+}
+
+.footer-heading {
+    color: var(--color-cream);
+    font-family: var(--body-font)
+    ;
+}
+
+.footer-text {
+    color: var(--color-cream);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-family: var(--body-font);
+}
+.footer-link {
+    color: var(--color-cream);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--color-pink-light);
+}
+
+.footer-icon {
+    font-size: 1rem;
+    display: inline-block;
+}
+
+.footer ul li {
+    margin-bottom: 8px;
+}
+
+
+@media (max-width: 768px) {
+    
+    .footer .row {
+        text-align: center;
+    }
+
+    .footer-form {
+        flex-direction: column;
+    }
+
+    .footer-input,
+    .footer-submit {
+        width: 100%;
+    }
+}
