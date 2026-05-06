@@ -218,3 +218,16 @@
     border-color: var(--color-pink);
     color: white;
 }
+
+.class-detail-image-wrapper img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+@media (min-width: 768px) {
+    .class-detail-image-wrapper img {
+        height: 350px;
+    }
+}
