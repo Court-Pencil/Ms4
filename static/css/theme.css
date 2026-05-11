@@ -16,7 +16,7 @@
     --color-sage: #5C8943;
 
     --color-cream: #FFFBF5;
-    --dark-walnut: #4A2A1A;
+    --black: #1F1F1F;
 }
 
 * {
@@ -44,7 +44,7 @@ h3 { font-size: 1.5rem; }
 
 p {
     font-size: 0.95rem;
-    color: var(--dark-walnut);
+    color: var(--black);
 }
 
 .container {
@@ -123,6 +123,20 @@ hr {
     margin: 20px 0;
 }
 
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-teal);
+    color: white;
+    padding: 8px 16px;
+    z-index: 9999;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
 
 @media (min-width: 600px) {
     .btn {

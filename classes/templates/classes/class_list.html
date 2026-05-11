@@ -6,14 +6,26 @@
 {% block content %}
 
 <!-- Hero -->
-<section class="course-hero text-white text-center d-flex align-items-center">
-  <div class="container">
-    <h2 class="course-hero-title text-white mb-4">Our Courses</h2>
-    <p class="course-hero-subtitle text-white">
-      Find the perfect course to express your creativity. From pottery to printmaking,
-      we have something for every artist.
-    </p>
-  </div>
+<section class="course-hero text-white text-center position-relative">
+    <div class="wc-blob wc-blob-1"></div>
+    <div class="wc-blob wc-blob-2"></div>
+    <div class="wc-blob wc-blob-3"></div>
+    <!-- Content on top -->
+    <div class="container position-relative" style="z-index: 2;">
+        <h2 class="course-hero-title text-white mb-4">Our Courses</h2>
+        <p class="course-hero-subtitle text-white">
+            Find the perfect course to express your creativity. From pottery to printmaking,
+            we have something for every artist.
+        </p>
+    </div>
+
+    <!-- Wave at bottom -->
+    <div class="course-hero-wave">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path fill="#FFffff" d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,80 L0,80 Z"/>
+    </svg>
+</div>
+
 </section>
 
 <!-- Filter Bar -->
