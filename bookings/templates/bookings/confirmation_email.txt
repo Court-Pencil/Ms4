@@ -1,0 +1,19 @@
+Wild Geese Studios 🪿
+
+Hi {{ user.username }},
+
+Thank you for your booking! We're looking forward to seeing you.
+
+BOOKING CONFIRMATION
+--------------------
+Class: {{ studio_class.title }}
+Date: {{ studio_class.date }}
+Time: {{ studio_class.start_time }}
+Instructor: {{ studio_class.instructor }}
+Price: £{{ studio_class.price }}
+
+Booking Reference: {{ booking.stripe_payment_id }}
+
+See you soon!
+The Wild Geese Studios Team
+hello@wildgeesestudios.com

@@ -158,3 +158,5 @@ ACCOUNT_LOGIN_METHODS = {'username'}
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
