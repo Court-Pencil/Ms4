@@ -1,16 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<h2>Booking Confirmed!</h2>
-{% if booking %}
-<h3> Booking Summary</h3>
-<div class="alert alert-success">
-          <strong>{{ booking.studio_class.title }}</strong><br>
-          <strong>Date:</strong> {{ booking.studio_class.date|date:"d/m/Y" }}<br>
-          <strong>Time:</strong> {{ booking.studio_class.duration_display }}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center">
+            
+            <div class="success-container">
+                <div class="success-icon">🎨</div>
+                <h1 class="success-heading">Booking Confirmed!</h1>
+                <p class="success-subtext">We're so excited to see you!</p>
+
+                {% if booking %}
+                <div class="booking-card text-start">
+                    <h3 class="booking-card-title">Booking Summary</h3>
+                    <p class="booking-detail"><strong>Class:</strong> {{ booking.studio_class.title }}</p>
+                    <p class="booking-detail"><strong>Date:</strong> {{ booking.studio_class.date|date:"l, j F Y" }}</p>
+                    {% if booking.studio_class.start_time %}
+                    <p class="booking-detail"><strong>Time:</strong> {{ booking.studio_class.start_time|time:"g:i A" }} - {{ booking.studio_class.end_time|time:"g:i A" }}</p>
+                    {% endif %}
+                    <p class="booking-detail"><strong>Instructor:</strong> {{ booking.studio_class.instructor }}</p>
+                    <p class="booking-detail"><strong>Price:</strong> £{{ booking.studio_class.price }}</p>
+                </div>
+                {% else %}
+                <p class="text-muted">Your booking is confirmed — check <strong>My Bookings</strong> for full details.</p>
+                {% endif %}
+
+                <div class="d-flex gap-3 justify-content-center flex-wrap mt-4">
+                    <a href="{% url 'my_bookings' %}" class="btn btn-lg btn-book-now">View My Bookings</a>
+                    <a href="{% url 'class_list' %}" class="btn btn-lg btn-orange">Browse More Classes</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-<p>Your class has been successfully booked.</p>
-{% else %}
-<p>There was an issue retrieving your booking details. Please check your bookings page for confirmation.</p>
-{% endif %}
-<a href="{% url 'class_list' %}">Browse More Classes</a>
+</div>
 {% endblock %}

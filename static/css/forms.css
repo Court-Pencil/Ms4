@@ -51,3 +51,17 @@
     margin-bottom: 24px;
 }
 
+.btn-orange {
+    background-color: var(--color-orange);
+    color: white;
+    border-radius: 50px;
+    font-family: var(--body-font);
+    font-size: 1.2rem;
+    padding: 10px 40px;
+    transition: background 0.2s ease;
+}
+
+.btn-orange:hover {
+    background-color: var(--color-orange-light);
+    color: white;
+}
