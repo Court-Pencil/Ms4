@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
-    'localhost', '127.0.0.1', 'heruko.app.com'
+    'localhost', '127.0.0.1', '.herokuapp.com'
 ]
 
 
