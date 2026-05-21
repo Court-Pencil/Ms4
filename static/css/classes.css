@@ -3,12 +3,14 @@
     
     min-height: 200px;
     padding: 45px 0;
-     position: relative;
+    position: relative;
     overflow: hidden;
-      position: relative;
+    position: relative;
     overflow: hidden;
     background: transparent;
+    clip-path: inset(0 0 0 0);
 }
+
 
 .course-hero-title {
     font-family: var(--heading-font);
@@ -34,6 +36,15 @@
     align-items: center;
 }
 
+.blob-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
 .wc-blob {
     position: absolute;
     border-radius: 50%;
@@ -283,4 +294,26 @@
     .class-detail-image-wrapper img {
         height: 350px;
     }
+
+    .wc-blob-1 {
+        width: 500px;
+        height: 500px;
+        top: -150px;
+        left: -100px;
+    }
+
+    .wc-blob-2 {
+        width: 400px;
+        height: 400px;
+        top: -50px;
+        right: 5%;
+    }
+
+    .wc-blob-3 {
+        width: 350px;
+        height: 350px;
+        bottom: -80px;
+        left: 35%;
+    }
 }
+

@@ -14,7 +14,7 @@
         {% if class_details.image %}
             <div class="class-detail-image-wrapper">
                 <img src="{{ class_details.image.url }}" alt="{{ class_details.title }}">
-                <span class="badge class-detail-badge class-detail-badge-overlay">
+                <span class="badge class-detail-badge class-detail-badge-overlay my-4">
                     {{ class_details.category.name }}
                 </span>
             </div>
@@ -22,7 +22,7 @@
             {% endif %}
 
             <div class="class-detail-content">
-                <h1 class="class-detail-title">{{ class_details.title }}</h1>
+                <h2 class="class-detail-title mb-4">{{ class_details.title }}</h2>
             </div>
 
             <div class="row g-3 mb-4">
@@ -74,7 +74,7 @@
             <div class="d-flex gap-3 flex-wrap mb-5">
                 {% if user.is_authenticated %}
                     {% if class_details.spots_remaining > 0 %}
-                        <a href="{% url 'stripe_checkout' class_details.slug %}" class="btn btn-lg btn-book-now">
+                        <a href="{% url 'stripe_checkout' class_details.slug %}" class="btn btn-lg btn-primary">
                             Book Now — £{{ class_details.price }}
                         </a>
                     {% else %}
