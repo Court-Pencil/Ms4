@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import cloudinary
-
+from django.conf import settings as django_settings
 import dj_database_url
 
 load_dotenv()
@@ -124,9 +124,17 @@ cloudinary.config(
     cloudinary_url=os.getenv('CLOUDINARY_URL')
 )
 
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+if not hasattr(django_settings, 'STATICFILES_STORAGE'):
+    django_settings.STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
