@@ -10,6 +10,8 @@ from .models import Booking
 from django.contrib.auth.models import User
 from datetime import date
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 
@@ -64,11 +66,25 @@ def stripe_webhook(request):
         studio_class = StudioClass.objects.get(slug=class_data) 
         user = User.objects.get(id=user_id)
     
-        Booking.objects.create(
+        booking = Booking.objects.create(
             user = user,
             studio_class = studio_class,
             status = 'confirmed',
             stripe_payment_id = session.payment_intent
+        )
+
+        subject = f'Booking Confirmed — {studio_class.title}'
+        message = render_to_string('bookings/confirmation_email.txt', {
+        'user': user,
+        'studio_class': studio_class,
+        'booking': booking,
+        })
+        send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [user.email],
+        fail_silently=False,
         )
     
     return HttpResponse(status=200)
