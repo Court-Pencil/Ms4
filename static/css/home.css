@@ -1,4 +1,9 @@
 
+.sub-heading {
+    font-family: var(--heading-font);
+    color: var(--color-teal);
+    font-size: 3rem;
+}
 .hero-rotated {
     font-family: var(--heading-font);
     font-size: 1.5rem;
@@ -96,11 +101,22 @@
     width: 100%;
     
 }
+
+.gallery-img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-img:hover {
+    transform: scale(1.02);
+}
+
 .cta-section {
-    background: linear-gradient(to right, var(--color-pink), var(--color-orange));
+    background: var(--color-orange);
     clip-path: url(#blob-clip);
     padding: 80px 40px 120px 40px;
-    margin: 60px auto;
+    margin: 20px auto;
     max-width: 900px;
 }
 

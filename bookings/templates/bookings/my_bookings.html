@@ -1,38 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
+{% block extra_css %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<h1>My Bookings</h1>
+<div class="container py-5">
 
-{% if past_bookings %}
-    <h2>Past Bookings</h2>
-    <ul>
-        {% for booking in past_bookings %}
-            <li>
-                <strong>{{ booking.studio_class.title }}</strong><br>
-                Date: {{ booking.studio_class.date }}<br>
-                Instructor: {{ booking.studio_class.instructor }}<br>
-                Status: {{ booking.get_status_display }}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>You have no past bookings.</p>
-{% endif %}
+    <h1 class="mb-5 bookings-title">My Bookings</h1>
 
+    <!-- Upcoming Bookings -->
+    <div class="mb-5">
+        <h2 class="mb-4 bookings-section-title-upcoming">Upcoming Classes</h2>
+        {% if upcoming_bookings %}
+            <div class="row g-4">
+                {% for booking in upcoming_bookings %}
+                <div class="col-12 col-md-6">
+                    <div class="card booking-card h-100">
+                        {% if booking.studio_class.image %}
+                        <img src="{{ booking.studio_class.image.url }}" 
+                             alt="{{ booking.studio_class.title }}"
+                             class="card-img-top booking-card-img">
+                        {% endif %}
+                        <div class="card-body p-4">
+                            <span class="badge mb-2 booking-badge-upcoming">{{ booking.studio_class.category.name }}</span>
+                            <h3 class="card-title booking-card-title-upcoming">{{ booking.studio_class.title }}</h3>
+                            <p class="mb-1"><strong>Date:</strong> {{ booking.studio_class.date|date:"l, j F Y" }}</p>
+                            {% if booking.studio_class.start_time %}
+                            <p class="mb-1"><strong>Time:</strong> {{ booking.studio_class.start_time|time:"g:i A" }} - {{ booking.studio_class.end_time|time:"g:i A" }}</p>
+                            {% endif %}
+                            <p class="mb-1"><strong>Instructor:</strong> {{ booking.studio_class.instructor }}</p>
+                            <p class="mb-3"><strong>Status:</strong> 
+                                <span class="badge booking-badge-upcoming">{{ booking.get_status_display }}</span>
+                            </p>
+                            <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-outline-danger rounded-pill">Cancel Booking</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="booking-empty-state">
+                <p class="mb-3">You have no upcoming bookings.</p>
+                <a href="{% url 'class_list' %}" class="btn btn-primary">Browse Classes</a>
+            </div>
+        {% endif %}
+    </div>
 
-{% if upcoming_bookings %}
-    <h2>Upcoming Bookings</h2>
-    <ul>
-        {% for booking in upcoming_bookings %}
-            <li>
-                <strong>{{ booking.studio_class.title }}</strong><br>
-                Date: {{ booking.studio_class.date }}<br>
-                Instructor: {{ booking.studio_class.instructor }}<br>
-                Status: {{ booking.get_status_display }}
-            </li>
-        {% endfor %}
-    </ul>  
-{% else %}
-    <p>You have no bookings yet.</p>
-{% endif %}
+    <!-- Past Bookings -->
+    <div class="mb-5">
+        <h2 class="mb-4 bookings-section-title-past">Past Classes</h2>
+        {% if past_bookings %}
+            <div class="row g-4">
+                {% for booking in past_bookings %}
+                <div class="col-12 col-md-6">
+                    <div class="card booking-card booking-card-past h-100">
+                        {% if booking.studio_class.image %}
+                        <img src="{{ booking.studio_class.image.url }}" 
+                             alt="{{ booking.studio_class.title }}"
+                             class="card-img-top booking-card-img-past">
+                        {% endif %}
+                        <div class="card-body p-4">
+                            <span class="badge mb-2 booking-badge-past">{{ booking.studio_class.category.name }}</span>
+                            <h3 class="card-title booking-card-title-past">{{ booking.studio_class.title }}</h3>
+                            <p class="mb-1"><strong>Date:</strong> {{ booking.studio_class.date|date:"l, j F Y" }}</p>
+                            <p class="mb-1"><strong>Instructor:</strong> {{ booking.studio_class.instructor }}</p>
+                            <p class="mb-0"><strong>Status:</strong> 
+                                <span class="badge booking-badge-past">{{ booking.get_status_display }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">You have no past bookings.</p>
+        {% endif %}
+    </div>
 
+</div>
 {% endblock %}

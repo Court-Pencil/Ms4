@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
- 
-{% block content %}
-<div>
-    <h2>Create Account</h2>
-    <form method="POST" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-          <small class="text-muted">
-            Already have an account?
-            <a href="{% url 'account_login' %}">Login</a>
-          </small>
-        
-</div>
+{% load static %}
+{% load crispy_forms_tags %}
+{% block extra_css %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock %}
 
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <div class="text-center mb-4">
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="text-muted">Join Wild Geese Studios today</p>
+                </div>
+                <form method="POST" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary w-100 mt-3 rounded-pill">Sign Up</button>
+                </form>
+                <p class="text-center mt-3 mb-0">
+                    Already have an account?
+                    <a href="{% url 'account_login' %}" style="color: var(--color-teal);">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

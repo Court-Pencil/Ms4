@@ -58,7 +58,7 @@
   <!-- Courses Section -->
   <section class="mt-4" style="background-color: var(--color-cream);">
   <div class="container">
-    <h2 class="text-center mb-5">Popular Classes</h2>
+    <h2 class="text-center mb-5 sub-heading">Popular Classes</h2>
     <div class="row g-5">
       {% for class in class_list %}
       <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -94,8 +94,49 @@
       </defs>
     </svg>
 
+  <!-- Gallery Section -->
+<section style="background-color: var(--color-cream);">
+    <div class="container">
+        <h2 class="text-center mb-5 sub-heading">Studio Gallery</h2>
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/cyanotype-person.webp' %}" 
+                     alt="Student working on cyanotype print" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/lino-person.webp' %}" 
+                     alt="Student working on lino print" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/cyanotype-seashell.webp' %}" 
+                     alt="Cyanotype seashell print" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/gallery-clay-wheel.webp' %}" 
+                     alt="Student at pottery wheel" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/gallery-lino-1.webp' %}" 
+                     alt="Finished lino print artwork" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <img src="{% static 'images/gallery/gallery-hand-build.webp' %}" 
+                     alt="Hand building pottery" 
+                     class="img-fluid rounded-3 gallery-img">
+            </div>
+            
+            
+        </div>
+    </div>
+</section>
+
 <!-- CTA Section -->
-<section class="cta-section py-3 text-center text-white mb-4">
+<section class="cta-section text-center text-white mb-4">
   <div class="px-4 py-4">
     <h2 style="font-family: var(--heading-font); color: white; font-size: 3rem;">Ready to Get Creative?</h2>
     <p class="lead mb-4 " style="color: white;">
