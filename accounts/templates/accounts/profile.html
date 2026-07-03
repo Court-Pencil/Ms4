@@ -1,17 +1,26 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h1 class="auth-title mb-4">My Profile</h1>
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
 
-<h1>My Profile</h1>
-<p>Username: {{ profile.user.username }}</p>
-<p>Email: {{ profile.user.email }}</p>
-<p>Phone: {{ profile.phone_number }}</p>
-<p>Bio: {{ profile.bio }}</p>
+                <p><strong>Username:</strong> {{ profile.user.username }}</p>
+                <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                <p><strong>Phone:</strong> {{ profile.phone_number|default:"Not provided" }}</p>
+                <p><strong>Bio:</strong> {{ profile.bio|default:"Not provided" }}</p>
 
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
-
+                <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-3 rounded-pill">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
