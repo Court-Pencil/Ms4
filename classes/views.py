@@ -3,6 +3,7 @@ from classes.models import StudioClass, Category, Review
 from django.contrib.auth.decorators import login_required
 from classes.forms import CreateClassForm, ReviewForm
 from bookings.models import Booking
+from django.contrib import messages
 
 def class_list(request):
     class_list = StudioClass.objects.all()
@@ -71,12 +72,20 @@ def delete_class_view(request, slug):
 def submit_review(request, slug):
     studioclass = StudioClass.objects.get(slug=slug)
     booked = Booking.objects.filter(
-    user=request.user,
-    studio_class=studioclass,
-    status='confirmed'
+        user=request.user,
+        studio_class=studioclass,
+        status='confirmed'
     ).exists()
     if not booked:
         return redirect('class_details', slug=slug)
+
+    existing_review = Review.objects.filter(
+        user=request.user,
+        studio_class=studioclass
+    ).exists()
+    if existing_review:
+        messages.info(request, 'You have already reviewed this class.')
+        return redirect('my_bookings')
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -85,6 +94,7 @@ def submit_review(request, slug):
             review.user = request.user
             review.studio_class = studioclass
             review.save()
+            messages.success(request, 'Review submitted successfully!')
             return redirect('my_bookings')
     else:
         form = ReviewForm()
