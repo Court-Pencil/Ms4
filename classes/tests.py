@@ -210,6 +210,15 @@ class ReviewModelTest(TestCase):
             comment = "Great class! Learned a lot and had fun.",
         )
             
+    def test_review_can_be_submitted(self):
+        self.client.login(username='court', password='testuser123')
+        response = self.client.post(f'/classes/{self.studioclass.slug}/review/', {
+        'rating': 4,
+        'comment': 'Really enjoyed this class!'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Review.objects.filter(comment='Really enjoyed this class!').exists())
+            
 class UserProfileModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='jessica', password='testuser123'
