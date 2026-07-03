@@ -89,7 +89,19 @@
                     ← Back to Classes
                 </a>
             </div>
-
+            <div class="mb-4">
+                <h3 class="class-detail-section-title">Reviews</h3>
+                    {% if reviews %}
+                         {% for review in reviews %}
+                    <div class="review-card mb-3">
+                        <p class="mb-1"><strong>{{ review.user.username }}</strong> rated it {{ review.rating }} out of 5</p>
+                        <p class="mb-0">{{ review.comment }}</p>
+                    </div>
+                {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No reviews yet. Be the first to leave a review!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

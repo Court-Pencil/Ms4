@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from classes.models import StudioClass, Category
+from classes.models import StudioClass, Category, Review
 from django.contrib.auth.decorators import login_required
 from classes.forms import CreateClassForm, ReviewForm
 from bookings.models import Booking
@@ -25,7 +25,8 @@ def class_details(request, slug):
     else:
         booked_class = False
     form = ReviewForm()
-    return render(request, 'classes/class_detail.html', {'class_details': class_details, 'booked_class': booked_class, 'review_form': form})
+    reviews = Review.objects.filter(studio_class=class_details).order_by('-created_at')
+    return render(request, 'classes/class_detail.html', {'class_details': class_details, 'booked_class': booked_class, 'review_form': form, 'reviews': reviews})
 
 @login_required
 def create_class_view(request):

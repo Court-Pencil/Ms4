@@ -68,6 +68,7 @@
                             <p class="mb-0"><strong>Status:</strong> 
                                 <span class="badge booking-badge-past">{{ booking.get_status_display }}</span>
                             </p>
+                            <a href="{% url 'submit_review' booking.studio_class.slug %}" class="btn btn-sm btn-primary mt-2 rounded-pill">Leave a Review</a>
                         </div>
                     </div>
                 </div>
