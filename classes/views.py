@@ -65,3 +65,26 @@ def delete_class_view(request, slug):
         studioclass.delete()
         return redirect('class_list')
     return render(request, 'classes/class_confirm_delete.html', {'object': studioclass})
+
+@login_required
+def submit_review(request, slug):
+    studioclass = StudioClass.objects.get(slug=slug)
+    booked = Booking.objects.filter(
+    user=request.user,
+    studio_class=studioclass,
+    status='confirmed'
+    ).exists()
+    if not booked:
+        return redirect('class_details', slug=slug)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.studio_class = studioclass
+            review.save()
+            return redirect('my_bookings')
+    else:
+        form = ReviewForm()
+    return render(request, 'classes/submit_review.html', {'class_details': studioclass, 'review_form': form})

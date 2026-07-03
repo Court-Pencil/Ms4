@@ -90,17 +90,6 @@
                 </a>
             </div>
 
-            {% if user.is_authenticated and booked_class %}
-            <div class="class-detail-review mt-4">
-                <h3 class="class-detail-section-title">Leave a Review</h3>
-                <form method="POST" action="{% url 'class_details' class_details.slug %}">
-                    {% csrf_token %}
-                    {{ review_form.as_p }}
-                    <button type="submit" class="btn btn-submit-review">Submit Review</button>
-                </form>
-            </div>
-            {% endif %}
-
         </div>
     </div>
 </div>

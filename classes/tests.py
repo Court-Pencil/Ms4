@@ -150,6 +150,7 @@ class ReviewModelTest(TestCase):
         )
         self.studioclass = StudioClass.objects.create(
             title = 'Intro to Pottery',
+            slug = 'intro-to-pottery',
             category = self.category,
             instructor = 'Steve',
             date = date(2024, 7, 1),
@@ -160,6 +161,13 @@ class ReviewModelTest(TestCase):
             is_published = True,
         )
         self.user = User.objects.create_user(username='court', password='testuser123')
+        self.booking = Booking.objects.create(
+        user=self.user,
+        studio_class=self.studioclass,
+        status='confirmed',
+        stripe_payment_id='test123'
+        )
+
         self.review = Review.objects.create(
             user = self.user,
             studio_class = self.studioclass,
@@ -211,6 +219,8 @@ class ReviewModelTest(TestCase):
         )
             
     def test_review_can_be_submitted(self):
+    # delete the existing review first so we can submit a new one
+        self.review.delete()
         self.client.login(username='court', password='testuser123')
         response = self.client.post(f'/classes/{self.studioclass.slug}/review/', {
         'rating': 4,
