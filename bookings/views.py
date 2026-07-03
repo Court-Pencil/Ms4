@@ -106,7 +106,7 @@ def cancel_booking(request, booking_id):
     if not request.user == booking.user:
         return redirect('my_bookings')
     if request.method == 'GET':
-        return render(request, 'bookings/cancel_booking.html', {'booking': booking})
+        return render(request, 'bookings/confirm_cancel_booking.html', {'booking': booking})
     if request.method == 'POST':
         booking.delete()  
         messages.success(request, 'Your booking has been cancelled.')  
