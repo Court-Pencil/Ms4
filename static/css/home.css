@@ -102,6 +102,12 @@
     
 }
 
+.course-title {
+    font-size: 1.2rem;
+    color: var(--black);
+    font-family: var(--body-font);
+}
+
 .gallery-img {
     width: 100%;
     object-fit: cover;
