@@ -17,6 +17,7 @@
     --color-slate-grey: #143E3E;
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -113,6 +114,11 @@ p {
 .btn-outline-secondary:hover {
     background-color: var(--color-orange) !important;
     color: white !important;
+}
+
+.btn:focus {
+    outline: 3px solid var(--color-teal);
+    outline-offset: 2px;
 }
 
 hr {

@@ -55,6 +55,16 @@
     </div>
 </section>
 
+ <!-- SVG blob definition -->
+    <svg width="0" height="0" style="position: absolute;">
+      <defs>
+        <clipPath id="blob-clip" clipPathUnits="objectBoundingBox">
+           <path d="M0.9,0.15 C1.05,0.35 1.0,0.65 0.85,0.85 C0.7,1.05 0.4,1.0 0.2,0.95 C0.0,0.8 -0.05,0.55 0.05,0.3 C0.12,0.1 0.35,-0.05 0.6,0.02 C0.78,0.08 0.78,-0.02 0.9,0.15 Z"/>
+        </clipPath>
+      </defs>
+    </svg>
+
+
   <!-- Courses Section -->
   <section class="mt-4" style="background-color: var(--color-cream);">
   <div class="container">
@@ -80,19 +90,12 @@
       {% endfor %}
     </div>
     <div class="text-center mt-5">
-      <a href="{% url 'class_list' %}" class="btn btn-lg" style="background-color: var(--color-teal); color: white;">View All Classes</a>
+      <a href="{% url 'class_list' %}" class="btn btn-lg"  tabindex="0" style="background-color: var(--color-teal); color: white;">View All Classes</a>
     </div>
   </div>
 </section>
 
-    <!-- SVG blob definition -->
-    <svg width="0" height="0" style="position: absolute;">
-      <defs>
-        <clipPath id="blob-clip" clipPathUnits="objectBoundingBox">
-           <path d="M0.9,0.15 C1.05,0.35 1.0,0.65 0.85,0.85 C0.7,1.05 0.4,1.0 0.2,0.95 C0.0,0.8 -0.05,0.55 0.05,0.3 C0.12,0.1 0.35,-0.05 0.6,0.02 C0.78,0.08 0.78,-0.02 0.9,0.15 Z"/>
-        </clipPath>
-      </defs>
-    </svg>
+   
 
   <!-- Gallery Section -->
 <section style="background-color: var(--color-cream);">
@@ -142,7 +145,7 @@
     <p class="lead mb-4 " style="color: white;">
       Join our next course and discover the artist within you. Limited spots available!
     </p>
-    <a href="{% url 'class_list' %}" class="btn btn-lg px-5 py-3" 
+    <a href="{% url 'class_list' %}" class="btn btn-lg px-5 py-3"  tabindex="0" 
        style="background-color: white; color: var(--color-orange); border-radius: 50px; font-family: var(--heading-font); font-size: 1.7rem;">
       Book Your Spot Today
     </a>
