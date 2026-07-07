@@ -45,6 +45,7 @@
     {% endwith %}
 
     <form action="{% url 'class_list' %}" method="get" class="w-100 mt-2 mt-md-0 ms-md-auto" style="max-width: 250px;">
+      <label for="search" class="visually-hidden">Search classes</label>
       <input name="search" type="text" placeholder="Search..."
              class="form-control search-input">
     </form>
