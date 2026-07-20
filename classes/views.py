@@ -4,9 +4,13 @@ from django.contrib.auth.decorators import login_required
 from classes.forms import CreateClassForm, ReviewForm
 from bookings.models import Booking
 from django.contrib import messages
+from datetime import date
 
 def class_list(request):
-    class_list = StudioClass.objects.all()
+    class_list = StudioClass.objects.filter(
+    is_published=True,
+    date__gte=date.today()
+    ).order_by('date')
     filter_categories = Category.objects.all()
     class_type = request.GET.get('class_type')
     if class_type:
