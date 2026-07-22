@@ -55,7 +55,7 @@
             </div>
 
             <div class="mb-4">
-                {% if class.spots_remaining == 0 %}
+                {% if class_details.spots_remaining == 0 %}
                     <p class="text-danger fw-bold">Sorry, no spots left!</p>
                 {% elif class_details.spots_remaining <= 2 %}
                     <p class="text-danger fw-bold">🔴 Only {{ class_details.spots_remaining }} spots left!</p>
