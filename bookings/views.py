@@ -15,12 +15,26 @@ from django.template.loader import render_to_string
 
 
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @login_required
 def stripe_checkout(request, slug):
     class_details = StudioClass.objects.get(slug=slug)
+
+    already_booked = Booking.objects.filter(
+        user=request.user,
+        studio_class=studio_class,
+        status='confirmed'
+        ).exists()
+    if already_booked:
+        messages.warning(request, 'You have already booked this class.')
+        return redirect('class_details', slug=slug)
+    if studio_class.is_full:
+        messages.warning(request, 'Sorry, this class is fully booked.')
+        return redirect('class_details', slug=slug)
+
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
@@ -112,5 +126,17 @@ def cancel_booking(request, booking_id):
         messages.success(request, 'Your booking has been cancelled.')  
     return redirect('my_bookings')
     
+@login_required
+def edit_booking_additional_notes(request, booking_id):
+    booking = Booking.objects.get(id=booking_id)
+    if not request.user == booking.user:
+        return redirect('my_bookings')
+    if request.method == 'POST':
+        additional_notes = request.POST.get('additional_notes')
+        booking.additional_notes = additional_notes
+        booking.save()
+        messages.success(request, 'Your additional notes have been updated.')
+        return redirect('my_bookings')
+    return render(request, 'bookings/edit_additional_notes.html', {'booking': booking})
     
 
