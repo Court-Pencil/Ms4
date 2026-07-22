@@ -35,7 +35,9 @@ class StudioClass(models.Model):
     
     @property
     def spots_remaining(self):
-        return self.capacity - self.bookings.filter(status='confirmed').count()
+        booked = self.bookings.filter(status='confirmed').count()
+        remaining = self.capacity - booked
+        return max(0, remaining)
     
     @property
     def is_full(self):
