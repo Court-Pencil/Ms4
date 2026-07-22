@@ -219,7 +219,6 @@ class ReviewModelTest(TestCase):
         )
             
     def test_review_can_be_submitted(self):
-    # delete the existing review first so we can submit a new one
         self.review.delete()
         self.client.login(username='court', password='testuser123')
         response = self.client.post(f'/classes/{self.studioclass.slug}/review/', {

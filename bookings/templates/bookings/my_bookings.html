@@ -17,11 +17,6 @@
                 {% for booking in upcoming_bookings %}
                 <div class="col-12 col-md-6">
                     <div class="card booking-card h-100">
-                        {% if booking.studio_class.image %}
-                        <img src="{{ booking.studio_class.image.url }}" 
-                             alt="{{ booking.studio_class.title }}"
-                             class="card-img-top booking-card-img">
-                        {% endif %}
                         <div class="card-body p-4">
                             <span class="badge mb-2 booking-badge-upcoming">{{ booking.studio_class.category.name }}</span>
                             <h3 class="card-title booking-card-title-upcoming">{{ booking.studio_class.title }}</h3>
