@@ -29,6 +29,8 @@ def class_details(request, slug):
         booked_class = Booking.objects.filter(user=request.user, studio_class=class_details, status='confirmed').exists()
     else:
         booked_class = False
+    if request.GET.get('canceled'):
+        messages.warning(request, 'Your payment was cancelled. No charge has been made.')
     form = ReviewForm()
     reviews = Review.objects.filter(studio_class=class_details).order_by('-created_at')
     return render(request, 'classes/class_detail.html', {'class_details': class_details, 'booked_class': booked_class, 'review_form': form, 'reviews': reviews})

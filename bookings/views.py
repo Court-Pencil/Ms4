@@ -25,13 +25,13 @@ def stripe_checkout(request, slug):
 
     already_booked = Booking.objects.filter(
         user=request.user,
-        studio_class=studio_class,
+        studio_class=class_details,
         status='confirmed'
         ).exists()
     if already_booked:
         messages.warning(request, 'You have already booked this class.')
         return redirect('class_details', slug=slug)
-    if studio_class.is_full:
+    if class_details.is_full:
         messages.warning(request, 'Sorry, this class is fully booked.')
         return redirect('class_details', slug=slug)
 
@@ -53,7 +53,7 @@ def stripe_checkout(request, slug):
             },
         mode='payment',
         success_url=request.build_absolute_uri('/bookings/book/success/') + '?success=true',
-        cancel_url=request.build_absolute_uri(f'/classes/{slug}/'),
+        cancel_url=request.build_absolute_uri(f'/classes/{slug}/') + '?canceled=true',
     )
     return redirect(session.url, code=303) 
 
