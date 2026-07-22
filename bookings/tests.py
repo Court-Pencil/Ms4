@@ -36,3 +36,34 @@ class CancellationTestCase(TestCase):
         self.assertEqual(302, response.status_code)
         self.assertFalse(Booking.objects.filter(id=self.booking.id).exists())
 
+class BookingModelTestCase(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(
+            name="Pottery",
+            slug="pottery",
+            description="A class for pottery enthusiasts."
+        )
+        self.studioclass = StudioClass.objects.create(
+            title = 'Intro to Pottery',
+            category = self.category,
+            instructor = 'Steve',
+            date = date(2024, 7, 1),
+            duration = 120,
+            capacity = 10,
+            price = 50.00,
+            description = 'Learn the basics of pottery in this introductory class.',
+            is_published = True,
+        )
+        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.booking = Booking.objects.create(
+            user = self.user,
+            studio_class = self.studioclass,
+            status = 'confirmed',
+            stripe_payment_id = 'fushgui1033'
+        )
+
+    def test_notes_field_saves_correctly_for_editing_booking(self):
+        self.booking.notes = "i need to cancel this booking"
+        self.booking.save()
+        updated_booking = Booking.objects.get(id=self.booking.id)
+        self.assertEqual(updated_booking.notes, "i need to cancel this booking")
