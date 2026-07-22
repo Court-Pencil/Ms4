@@ -87,7 +87,9 @@
               <p class="course-date">🕐 {{ class.start_time|time:"g:i A" }} - {{ class.end_time|time:"g:i A" }}</p>
             {% endif %}
 
-            {% if class.spots_remaining <= 2 %}
+            {% if class.spots_remaining == 0 %}
+                    <p class="text-danger fw-bold">Sorry, no spots left!</p>
+            {% elif class.spots_remaining <= 2 %}
                <p class="text-danger fw-bold">Only {{ class.spots_remaining }} spots left!</p>
             {% elif class.spots_remaining <= 5 %}
               <p class="text-warning fw-bold">Hurry! Only {{ class.spots_remaining }} spots remaining.</p>
