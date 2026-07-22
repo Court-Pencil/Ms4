@@ -62,8 +62,8 @@ class BookingModelTestCase(TestCase):
             stripe_payment_id = 'fushgui1033'
         )
 
-    def test_notes_field_saves_correctly_for_editing_booking(self):
-        self.booking.notes = "i need to cancel this booking"
+    def test_additional_notes_field_saves_correctly_for_editing_booking(self):
+        self.booking.additional_notes = "i need to cancel this booking"
         self.booking.save()
         updated_booking = Booking.objects.get(id=self.booking.id)
-        self.assertEqual(updated_booking.notes, "i need to cancel this booking")
+        self.assertEqual(updated_booking.additional_notes, "i need to cancel this booking")

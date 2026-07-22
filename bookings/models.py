@@ -6,6 +6,7 @@ class Booking(models.Model):
     status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled')], default='pending')
     stripe_payment_id = models.CharField(max_length=100, blank=True, null=True)
     booked_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    additional_notes = models.TextField(blank=True, null=True, help_text="accessibility requirements, dietary needs, equipment preferences")
 
     def __str__(self):
         return f"Booking for {self.studio_class.title} by {self.user.username} - Status: {self.status}"
