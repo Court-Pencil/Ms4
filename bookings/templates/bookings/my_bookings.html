@@ -32,7 +32,7 @@
                             <form method="POST" action="{% url 'edit_booking_additional_notes' booking.id %}">
                                 {% csrf_token %}
                             <label for="additional_notes_{{ booking.id }}" class="form-label mt-3">Additional Notes</label>
-                            <textarea id="additional_notes_{{ booking.id }}" name="additional_notes" class="form-control rounded-3" rows="2" placeholder="e.g. accessibility requirements, dietary needs, equipment preferences">{{ booking.additional_notes }}</textarea>
+                            <textarea id="additional_notes_{{ booking.id }}" name="additional_notes" class="form-control rounded-3" rows="2" placeholder="e.g. accessibility requirements, dietary needs, equipment preferences">{{ booking.additional_notes|default:"" }}</textarea>
                             <button type="submit" class="btn btn-sm btn-primary mt-2 rounded-pill">Save Notes</button>
                             </form>
                         </div>
