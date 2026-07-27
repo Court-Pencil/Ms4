@@ -19,10 +19,10 @@ class CancellationTestCase(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
-        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
         self.booking = Booking.objects.create(
             user = self.user,
             studio_class = self.studioclass,
@@ -32,7 +32,7 @@ class CancellationTestCase(TestCase):
 
     def test_cancel_booking_deletes_booking(self):
         self.client.login(username='court', password='testuser123')
-        response = self.client.post(f"/bookings/book/{self.booking.id}/cancel/")
+        response = self.client.post(f"/bookings/book/{self.booking.id}/cancel/") # noqa: E501
         self.assertEqual(302, response.status_code)
         self.assertFalse(Booking.objects.filter(id=self.booking.id).exists())
 
@@ -51,10 +51,10 @@ class BookingModelTestCase(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
-        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
         self.booking = Booking.objects.create(
             user = self.user,
             studio_class = self.studioclass,
@@ -66,4 +66,5 @@ class BookingModelTestCase(TestCase):
         self.booking.additional_notes = "i need to cancel this booking"
         self.booking.save()
         updated_booking = Booking.objects.get(id=self.booking.id)
-        self.assertEqual(updated_booking.additional_notes, "i need to cancel this booking")
+        self.assertEqual(updated_booking.additional_notes, "i need to cancel this booking") # noqa: E501
+

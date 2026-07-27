@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from classes.models import StudioClass, Category
+from classes.models import StudioClass
 
 def home(request):
     class_list = StudioClass.objects.all()[:3]                   

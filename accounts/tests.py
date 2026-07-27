@@ -39,7 +39,7 @@ class AuthViewTest(TestCase):
         username='newuser',
         password='testpass123'
         )
-        logged_in = self.client.login(username='newuser', password='testpass123')
+        logged_in = self.client.login(username='newuser', password='testpass123') # noqa: E501
         self.assertTrue(logged_in)
 
     def test_does_form_display_to_logged_in_user(self):
@@ -52,7 +52,7 @@ class AuthViewTest(TestCase):
         self.assertEqual(200, response.status_code)
 
     def test_form_saves_correctly(self):
-        new_user = User.objects.create_user(username='newuser', password='testpass123')
+        new_user = User.objects.create_user(username='newuser', password='testpass123') # noqa: E501
         self.client.login(username='newuser', password='testpass123')
         self.client.post("/userprofile/edit/", {
         'phone_number': '0123456789',

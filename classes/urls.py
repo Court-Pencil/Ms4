@@ -1,5 +1,12 @@
 from django.urls import path
-from .views import class_list, class_details, create_class_view, edit_class_view, delete_class_view, submit_review
+from .views import (
+    class_list,
+    class_details,
+    create_class_view,
+    edit_class_view,
+    delete_class_view,
+    submit_review,
+)
 
 urlpatterns = [
     path('', class_list, name = 'class_list'),
@@ -10,3 +17,4 @@ urlpatterns = [
     path('<slug:slug>/review/', submit_review, name='submit_review'),
     
 ]
+

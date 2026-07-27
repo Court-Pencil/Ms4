@@ -9,3 +9,4 @@ class UserProfileForm(forms.ModelForm):
             'phone_number',
              'bio'
         ]
+

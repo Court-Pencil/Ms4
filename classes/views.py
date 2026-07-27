@@ -8,8 +8,8 @@ from datetime import date
 
 def class_list(request):
     class_list = StudioClass.objects.filter(
-    is_published=True,
-    date__gte=date.today()
+        is_published=True,
+        date__gte=date.today()
     ).order_by('date')
     filter_categories = Category.objects.all()
     class_type = request.GET.get('class_type')
@@ -20,20 +20,35 @@ def class_list(request):
         filtered_class_list = class_list.filter(title__icontains=search)
     else:
         filtered_class_list = class_list
-    return render(request, 'classes/class_list.html', {'class_list': filtered_class_list, 'filter_categories': filter_categories})
-
+    return render(request, 'classes/class_list.html',
+                   {'class_list': filtered_class_list,
+                    'filter_categories': filter_categories})
 
 def class_details(request, slug):
     class_details = StudioClass.objects.get(slug=slug)
     if request.user.is_authenticated:
-        booked_class = Booking.objects.filter(user=request.user, studio_class=class_details, status='confirmed').exists()
+        booked_class = Booking.objects.filter(
+            user=request.user,
+            studio_class=class_details,
+            status='confirmed'
+        ).exists()
     else:
         booked_class = False
     if request.GET.get('canceled'):
-        messages.warning(request, 'Your payment was cancelled. No charge has been made.')
+        messages.warning(
+            request,
+            'Your payment was cancelled. No charge has been made.'
+        )
     form = ReviewForm()
-    reviews = Review.objects.filter(studio_class=class_details).order_by('-created_at')
-    return render(request, 'classes/class_detail.html', {'class_details': class_details, 'booked_class': booked_class, 'review_form': form, 'reviews': reviews})
+    reviews = Review.objects.filter(
+        studio_class=class_details
+    ).order_by('-created_at')
+    return render(request, 'classes/class_detail.html', {
+        'class_details': class_details,
+        'booked_class': booked_class,
+        'review_form': form,
+        'reviews': reviews
+    })
 
 @login_required
 def create_class_view(request):
@@ -56,13 +71,15 @@ def edit_class_view(request, slug):
         return redirect('class_list')
     studioclass = StudioClass.objects.get(slug=slug)
     if request.method == 'POST':
-        form = CreateClassForm(request.POST, request.FILES, instance=studioclass)
+        form = CreateClassForm(request.POST,
+                                request.FILES, instance=studioclass)
         if form.is_valid():
             form.save()
             return redirect('class_details', slug=studioclass.slug)
     else:
         form = CreateClassForm(instance=studioclass)
-    return render(request, 'classes/edit_class_view.html', {'form': form, 'studioclass': studioclass})
+    return render(request, 'classes/edit_class_view.html',
+                   {'form': form, 'studioclass': studioclass})
 
 @login_required
 def delete_class_view(request, slug):
@@ -72,7 +89,8 @@ def delete_class_view(request, slug):
     if request.method == 'POST':
         studioclass.delete()
         return redirect('class_list')
-    return render(request, 'classes/class_confirm_delete.html', {'object': studioclass})
+    return render(request, 'classes/class_confirm_delete.html',
+                   {'object': studioclass})
 
 @login_required
 def submit_review(request, slug):
@@ -104,4 +122,6 @@ def submit_review(request, slug):
             return redirect('my_bookings')
     else:
         form = ReviewForm()
-    return render(request, 'classes/submit_review.html', {'class_details': studioclass, 'review_form': form})
+    return render(request, 'classes/submit_review.html', 
+                  {'class_details': studioclass, 'review_form': form})
+

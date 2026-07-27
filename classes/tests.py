@@ -6,7 +6,6 @@ from accounts.models import UserProfile
 from datetime import date
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
-import decimal
 from decimal import Decimal
 import datetime
 
@@ -25,7 +24,7 @@ class CategoryModelTest(TestCase):
     def test_category_saves_correctly(self):
         self.assertEqual(self.category.name, "Pottery")   
         self.assertEqual(self.category.slug, "pottery")
-        self.assertEqual(self.category.description, "A class for pottery enthusiasts.")
+        self.assertEqual(self.category.description, "A class for pottery enthusiasts.") # noqa: E501
 
 class StudioClassModelTest(TestCase):
 
@@ -44,7 +43,7 @@ class StudioClassModelTest(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
 
@@ -53,7 +52,7 @@ class StudioClassModelTest(TestCase):
 
    
     def test_spots_remaining_decreases_with_booking(self):
-        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
         Booking.objects.create(
         user=self.user,
         studio_class=self.studioclass,
@@ -76,7 +75,7 @@ class StudioClassModelTest(TestCase):
         self.assertEqual(self.studioclass.start_time, datetime.time(10, 0))
 
     def test_end_time_calculates_correctly(self):
-        expected_end_time = (datetime.datetime.combine(date.today(), self.studioclass.start_time) + datetime.timedelta(minutes=self.studioclass.duration)).time()
+        expected_end_time = (datetime.datetime.combine(date.today(), self.studioclass.start_time) + datetime.timedelta(minutes=self.studioclass.duration)).time() # noqa: E501
         self.assertEqual(self.studioclass.end_time, expected_end_time)
     
 class BookingModelTest(TestCase):
@@ -94,10 +93,10 @@ class BookingModelTest(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
-        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
         self.booking = Booking.objects.create(
             user = self.user,
             studio_class = self.studioclass,
@@ -136,8 +135,10 @@ class BookingModelTest(TestCase):
         self.assertEqual(user_bookings.count(), 1)
 
     def test_all_bookings_for_specific_studio_class(self): 
-        studio_class_bookings = Booking.objects.filter(studio_class=self.studioclass) 
+        studio_class_bookings = Booking.objects.filter(studio_class=self.studioclass) # noqa: E501
         self.assertEqual(studio_class_bookings.count(), 1)
+
+    
         
     
 
@@ -157,10 +158,10 @@ class ReviewModelTest(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
-        self.user = User.objects.create_user(username='court', password='testuser123')
+        self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
         self.booking = Booking.objects.create(
         user=self.user,
         studio_class=self.studioclass,
@@ -179,7 +180,7 @@ class ReviewModelTest(TestCase):
         self.assertEqual(self.review.user , self.user)
         self.assertEqual(self.review.studio_class , self.studioclass)
         self.assertEqual(self.review.rating , 5) 
-        self.assertEqual(self.review.comment , "Great class! Learned a lot and had fun.")
+        self.assertEqual(self.review.comment , "Great class! Learned a lot and had fun.") # noqa: E501
 
     def test_rating_validator_one_to_five(self):
         new_user = User.objects.create_user(
@@ -221,16 +222,19 @@ class ReviewModelTest(TestCase):
     def test_review_can_be_submitted(self):
         self.review.delete()
         self.client.login(username='court', password='testuser123')
-        response = self.client.post(f'/classes/{self.studioclass.slug}/review/', {
-        'rating': 4,
-        'comment': 'Really enjoyed this class!'
-        })
+        response = self.client.post(
+            f'/classes/{self.studioclass.slug}/review/',
+            {
+            'rating': 4,
+            'comment': 'Really enjoyed this class!'
+            }
+        )
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(Review.objects.filter(comment='Really enjoyed this class!').exists())
+        self.assertTrue(Review.objects.filter(comment='Really enjoyed this class!').exists()) # noqa: E501
             
 class UserProfileModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='jessica', password='testuser123'
+        self.user = User.objects.create_user(username='jessica', password='testuser123' # noqa: E501
         )
         self.userprofile = self.user.accounts
         
@@ -244,7 +248,7 @@ class UserProfileModelTest(TestCase):
         self.assertEqual(self.userprofile.phone_number, '')
 
     def test_on_user_creation_create_profile(self):
-        new_user = User.objects.create_user(username='newuser', password='123rr')
+        new_user = User.objects.create_user(username='newuser', password='123rr') # noqa: E501
         self.assertTrue(UserProfile.objects.filter(user=new_user).exists())
 
 class ClassViewTest(TestCase):
@@ -272,13 +276,13 @@ class ClassCRUDViewTest(TestCase):
         self.client.login(username='court', password='testpass123')
         self.client.post("/classes/create/", {
         'title': 'claymation',
-        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id,
+        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id, # noqa: E501
         'instructor': 'Court',      
         'date': '2024-07-01',
         'duration': 120,
         'capacity': 10,
         'price': 50.00,
-        'description': 'Learn the basics of claymation in this introductory class.',
+        'description': 'Learn the basics of claymation in this introductory class.', # noqa: E501
         'is_published': True
         })
         new_class = StudioClass.objects.get(title='claymation')
@@ -310,18 +314,18 @@ class ClassCRUDViewTest(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
         self.client.post("/classes/intro-to-pottery/edit/", {
         'title': 'claymation',
-        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id,
+        'category': Category.objects.create(name='Sculpting', slug='sculpting', description='A class for sculpting enthusiasts.').id, # noqa: E501
         'instructor': 'Court',      
         'date': '2024-07-01',
         'duration': 120,
         'capacity': 10,
         'price': 40.00,
-        'description': 'Learn the basics of claymation in this introductory class.',
+        'description': 'Learn the basics of claymation in this introductory class.', # noqa: E501
         'is_published': True
         })
         updated_class = StudioClass.objects.get(id=self.studioclass.id)
@@ -367,7 +371,7 @@ class ClassCRUDViewTest(TestCase):
             duration = 120,
             capacity = 10,
             price = 50.00,
-            description = 'Learn the basics of pottery in this introductory class.',
+            description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
             is_published = True,
         )
         response = self.client.post("/classes/intro-to-pottery/delete/")
@@ -396,10 +400,10 @@ class ReviewViewTest(TestCase):
                 duration = 120,
                 capacity = 10,
                 price = 50.00,
-                description = 'Learn the basics of pottery in this introductory class.',
+                description = 'Learn the basics of pottery in this introductory class.', # noqa: E501
                 is_published = True,
             )
-            self.user = User.objects.create_user(username='court', password='testuser123')
+            self.user = User.objects.create_user(username='court', password='testuser123') # noqa: E501
             self.booking = Booking.objects.create(
             user=self.user,
             studio_class=self.studioclass,

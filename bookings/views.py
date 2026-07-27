@@ -5,7 +5,6 @@ import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-import json
 from .models import Booking
 from django.contrib.auth.models import User
 from datetime import date
@@ -110,9 +109,24 @@ def success(request):
 
 @login_required
 def my_bookings(request):
-    past_bookings = Booking.objects.filter(user=request.user, status='confirmed', studio_class__date__lt=date.today())
-    upcoming_bookings = Booking.objects.filter(user=request.user, status='confirmed', studio_class__date__gte=date.today())
-    return render(request, 'bookings/my_bookings.html', {'past_bookings': past_bookings, 'upcoming_bookings': upcoming_bookings})
+    past_bookings = Booking.objects.filter(
+        user=request.user,
+        status='confirmed',
+        studio_class__date__lt=date.today()
+    )
+    upcoming_bookings = Booking.objects.filter(
+        user=request.user,
+        status='confirmed',
+        studio_class__date__gte=date.today()
+    )
+    return render(
+        request,
+        'bookings/my_bookings.html',
+        {
+            'past_bookings': past_bookings,
+            'upcoming_bookings': upcoming_bookings
+        }
+    )
 
 @login_required
 def cancel_booking(request, booking_id):
@@ -120,7 +134,11 @@ def cancel_booking(request, booking_id):
     if not request.user == booking.user:
         return redirect('my_bookings')
     if request.method == 'GET':
-        return render(request, 'bookings/confirm_cancel_booking.html', {'booking': booking})
+        return render(
+            request,
+            'bookings/confirm_cancel_booking.html',
+            {'booking': booking}
+        )
     if request.method == 'POST':
         booking.delete()  
         messages.success(request, 'Your booking has been cancelled.')  

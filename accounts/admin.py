@@ -6,3 +6,4 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'phone_number']
 
 admin.site.register(UserProfile, UserProfileAdmin)
+
