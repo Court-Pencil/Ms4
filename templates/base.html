@@ -159,7 +159,9 @@
           <li class="mb-2"><a href="{% url 'home' %}" class="footer-link">Home</a></li>
           <li class="mb-2"><a href="{% url 'class_list' %}" class="footer-link">Classes</a></li>
           <li class="mb-2"><a href="{% url 'my_bookings' %}" class="footer-link">My Bookings</a></li>
-          <li class="mb-2"><a href="{% url 'account_signup' %}" class="footer-link">Register</a></li>
+          {% if not user.is_authenticated %}
+            <li class="mb-2"><a href="{% url 'account_signup' %}" class="footer-link">Register</a></li>
+          {% endif %}
         </ul>
       </div>
 
