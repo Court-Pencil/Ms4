@@ -29,12 +29,31 @@
                                 <span class="badge booking-badge-upcoming">{{ booking.get_status_display }}</span>
                             </p>
                             <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-outline-danger rounded-pill">Cancel Booking</a>
-                            <form method="POST" action="{% url 'edit_booking_additional_notes' booking.id %}">
-                                {% csrf_token %}
-                            <label for="additional_notes_{{ booking.id }}" class="form-label mt-3">Additional Notes</label>
-                            <textarea id="additional_notes_{{ booking.id }}" name="additional_notes" class="form-control rounded-3" rows="2" placeholder="e.g. accessibility requirements, dietary needs, equipment preferences">{{ booking.additional_notes|default:"" }}</textarea>
-                            <button type="submit" class="btn btn-sm btn-primary mt-2 rounded-pill">Save Notes</button>
-                            </form>
+                            <!-- Notes display (shown by default) -->
+                                <div class="notes-display mt-3" id="notes-display-{{ booking.id }}">
+                                    <p class="mb-1"><strong>Additional Notes:</strong></p>
+                                    <p class="text-muted fst-italic" id="notes-text-{{ booking.id }}">
+                                        {{ booking.additional_notes|default:"No notes added" }}
+                                    </p>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" 
+                                            onclick="showNotesForm('{{ booking.id }}')">Edit Notes</button>
+                                </div>
+
+                                <!-- Notes form (hidden by default) -->
+                                <div class="notes-form mt-3" id="notes-form-{{ booking.id }}" style="display: none;">
+                                    <form method="POST" action="{% url 'edit_booking_additional_notes' booking.id %}">
+                                        {% csrf_token %}
+                                        <label for="additional_notes_{{ booking.id }}" class="form-label">Additional Notes</label>
+                                        <textarea id="additional_notes_{{ booking.id }}" name="additional_notes" 
+                                                class="form-control rounded-3" rows="2" 
+                                                placeholder="e.g. accessibility requirements, dietary needs, equipment preferences">{{ booking.additional_notes|default:"" }}</textarea>
+                                        <div class="d-flex gap-2 mt-2">
+                                            <button type="submit" class="btn btn-sm btn-primary rounded-pill">Save Notes</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" 
+                                                    onclick="hideNotesForm('{{ booking.id }}')">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -81,4 +100,15 @@
     </div>
 
 </div>
+<script>
+function showNotesForm(bookingId) {
+    document.getElementById('notes-display-' + bookingId).style.display = 'none';
+    document.getElementById('notes-form-' + bookingId).style.display = 'block';
+}
+
+function hideNotesForm(bookingId) {
+    document.getElementById('notes-display-' + bookingId).style.display = 'block';
+    document.getElementById('notes-form-' + bookingId).style.display = 'none';
+}
+</script>
 {% endblock %}
